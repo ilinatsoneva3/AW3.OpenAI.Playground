@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33712.159
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F635E1EB-08F3-4CD1-9112-4D661234FB43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AW3.GR.OpenAI", "AW3.GR.OpenAI", "{4E6152AA-7D7E-4843-A738-EE0D63B833A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AW3.GR.OpenAI.API", "src\AW3.GR.OpenAI\AW3.GR.OpenAI.API\AW3.GR.OpenAI.API.csproj", "{00900DB7-6BE7-4275-BD7B-5B2709360BF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AW3.GR.OpenAI.Application", "src\AW3.GR.OpenAI\AW3.GR.OpenAI.Application\AW3.GR.OpenAI.Application.csproj", "{FB100AFC-054E-4E75-B3A2-BA97FE341FD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AW3.GR.OpenAI.Infrastructure", "src\AW3.GR.OpenAI\AW3.GR.OpenAI.Infrastructure\AW3.GR.OpenAI.Infrastructure.csproj", "{CA8BE22F-33DA-4852-AC92-8B2DBE66469D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00900DB7-6BE7-4275-BD7B-5B2709360BF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00900DB7-6BE7-4275-BD7B-5B2709360BF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00900DB7-6BE7-4275-BD7B-5B2709360BF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00900DB7-6BE7-4275-BD7B-5B2709360BF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB100AFC-054E-4E75-B3A2-BA97FE341FD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB100AFC-054E-4E75-B3A2-BA97FE341FD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB100AFC-054E-4E75-B3A2-BA97FE341FD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB100AFC-054E-4E75-B3A2-BA97FE341FD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA8BE22F-33DA-4852-AC92-8B2DBE66469D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA8BE22F-33DA-4852-AC92-8B2DBE66469D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA8BE22F-33DA-4852-AC92-8B2DBE66469D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA8BE22F-33DA-4852-AC92-8B2DBE66469D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4E6152AA-7D7E-4843-A738-EE0D63B833A1} = {F635E1EB-08F3-4CD1-9112-4D661234FB43}
+		{00900DB7-6BE7-4275-BD7B-5B2709360BF5} = {4E6152AA-7D7E-4843-A738-EE0D63B833A1}
+		{FB100AFC-054E-4E75-B3A2-BA97FE341FD8} = {4E6152AA-7D7E-4843-A738-EE0D63B833A1}
+		{CA8BE22F-33DA-4852-AC92-8B2DBE66469D} = {4E6152AA-7D7E-4843-A738-EE0D63B833A1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {667AF2FB-382A-433F-B269-F4524BAEB857}
+	EndGlobalSection
+EndGlobal
