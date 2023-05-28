@@ -1,5 +1,6 @@
 using AW3.GR.OpenAI.Application;
 using AW3.GR.OpenAI.Application.Interfaces;
+using AW3.GR.OpenAI.Infrastructure.Clients;
 
 var builder = WebApplication.CreateBuilder(args);
 

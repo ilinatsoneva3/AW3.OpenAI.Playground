@@ -1,4 +1,5 @@
 ﻿using AW3.GR.OpenAI.Application.Quotes.AskOpenAi;
+using AW3.GR.OpenAI.Domain.Common;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,11 @@ public class QuotesController : ControllerBase
 
     [HttpPost]
     [Route("ask-open-ai")]
-    public async Task<IResult> AskOpenAiAsync([FromBody] AskOpenAiQuery request)
+    [ProducesResponseType(typeof(string), HttpStatusCodes.OK)]
+    [ProducesResponseType(HttpStatusCodes.BadRequest)]
+    public async Task<AskOpenAiResponse> AskOpenAiAsync([FromBody] AskOpenAiQuery request)
     {
-        return Results.Ok(await _sender.Send(request));
+        return await _sender.Send(request);
 
     }
 }

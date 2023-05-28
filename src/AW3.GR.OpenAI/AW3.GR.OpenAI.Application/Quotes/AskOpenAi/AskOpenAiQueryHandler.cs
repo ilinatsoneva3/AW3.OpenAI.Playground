@@ -1,4 +1,5 @@
 ﻿using AW3.GR.OpenAI.Application.Interfaces;
+using AW3.GR.OpenAI.Domain.Enums;
 using MediatR;
 
 namespace AW3.GR.OpenAI.Application.Quotes.AskOpenAi;
@@ -14,7 +15,12 @@ internal sealed class AskOpenAiQueryHandler : IRequestHandler<AskOpenAiQuery, As
 
     public async Task<AskOpenAiResponse> Handle(AskOpenAiQuery request, CancellationToken cancellationToken)
     {
-        var result = await _aiClient.GetMostPopularQuoteByAuthorNameAsync(request.AuthorName);
+        var result = request.Type switch
+        {
+            OpenAiQuestionType.Book => await _aiClient.GetMostPopularQuoteBookNameAsync(request.Name),
+            OpenAiQuestionType.Author => await _aiClient.GetMostPopularQuoteByAuthorNameAsync(request.Name),
+            _ => throw new NotImplementedException()
+        };
 
         return new AskOpenAiResponse(result);
     }

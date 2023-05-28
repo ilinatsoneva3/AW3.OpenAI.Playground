@@ -3,4 +3,6 @@
 public interface IOpenAiClient
 {
     Task<string> GetMostPopularQuoteByAuthorNameAsync(string authorName);
+
+    Task<string> GetMostPopularQuoteBookNameAsync(string bookName);
 }

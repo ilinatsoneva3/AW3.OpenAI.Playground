@@ -6,12 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="MediatR" Version="12.0.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\AW3.GR.OpenAI.Domain\AW3.GR.OpenAI.Domain.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
 
 </Project>
