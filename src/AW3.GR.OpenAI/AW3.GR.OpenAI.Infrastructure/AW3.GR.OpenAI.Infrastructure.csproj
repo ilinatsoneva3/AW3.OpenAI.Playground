@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Rystem.OpenAi" Version="3.0.4" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.30.1" />
 	</ItemGroup>
 
 	<ItemGroup>

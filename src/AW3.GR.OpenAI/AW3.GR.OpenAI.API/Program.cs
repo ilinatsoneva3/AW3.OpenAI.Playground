@@ -1,19 +1,19 @@
 using AW3.GR.OpenAI.Application;
-using AW3.GR.OpenAI.Application.Interfaces;
-using AW3.GR.OpenAI.Infrastructure.Clients;
+using AW3.GR.OpenAI.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.
+    Services.AddApplication()
+            .AddInfrastructure();
+
 builder.Services.AddControllers();
-builder.Services.AddApplication();
 builder.Services.AddOpenAi(settings =>
 {
     settings.ApiKey = builder.Configuration["OpenAI:ApiKey"];
 });
-
-builder.Services.AddScoped<IOpenAiClient, OpenAIClient>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
