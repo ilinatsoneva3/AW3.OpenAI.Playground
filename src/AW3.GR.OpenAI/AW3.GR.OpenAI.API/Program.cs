@@ -1,8 +1,11 @@
+using System.Reflection;
 using AW3.GR.OpenAI.Application;
 using AW3.GR.OpenAI.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddEnvironmentVariables()
+                     .AddUserSecrets(Assembly.GetExecutingAssembly(), true);
 // Add services to the container.
 
 builder.Services
