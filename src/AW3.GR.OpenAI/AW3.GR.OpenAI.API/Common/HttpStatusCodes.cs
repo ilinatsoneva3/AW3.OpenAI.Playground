@@ -1,5 +1,4 @@
-﻿
-namespace AW3.GR.OpenAI.Domain.Common;
+﻿namespace AW3.GR.OpenAI.Domain.Common;
 
 public static class HttpStatusCodes
 {

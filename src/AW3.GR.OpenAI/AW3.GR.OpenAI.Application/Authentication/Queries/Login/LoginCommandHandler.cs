@@ -14,7 +14,6 @@ internal sealed class LoginCommandHandler : IRequestHandler<LoginCommand, LoginR
 
     public Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-
         //TODO: check if user exists
 
         //TODO check for correct password

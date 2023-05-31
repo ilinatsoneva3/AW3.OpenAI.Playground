@@ -14,6 +14,5 @@ public class QuotesController : ApiController
     public async Task<AskOpenAiResponse> AskOpenAiAsync([FromBody] AskOpenAiQuery request)
     {
         return await Sender.Send(request);
-
     }
 }
