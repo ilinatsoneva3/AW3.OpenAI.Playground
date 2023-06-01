@@ -1,26 +1,32 @@
 ﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Authentication;
+using AW3.GR.OpenAI.Application.Common.Persistence.Interfaces;
+using AW3.GR.OpenAI.Domain.Entities;
 using MediatR;
 
 namespace AW3.GR.OpenAI.Application.Authentication.Queries.Login;
 
 internal sealed class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
 {
+    private readonly IUserRepository _userRepository;
     private readonly IJwtGenerator _jwtGenerator;
 
-    public LoginCommandHandler(IJwtGenerator jwtGenerator)
+    public LoginCommandHandler(
+        IUserRepository userRepository,
+        IJwtGenerator jwtGenerator)
     {
+        _userRepository = userRepository;
         _jwtGenerator = jwtGenerator;
     }
 
     public Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        //TODO: check if user exists
+        if (_userRepository.GetUserByEmail(request.Email) is not User user)
+            throw new Exception("User does not exist");
 
-        //TODO check for correct password
+        if (user.PasswordHash != request.Password)
+            throw new Exception("Wrong password");
 
-        return Task.FromResult(new LoginResponse(Id: Guid.NewGuid(),
-                                                 Username: string.Empty,
-                                                 Email: request.Email,
-                                                 Token: _jwtGenerator.GenerateToken(Guid.NewGuid(), request.Email)));
+        return Task.FromResult(new LoginResponse(user,
+                                                 _jwtGenerator.GenerateToken(user.Id, user.Email)));
     }
 }

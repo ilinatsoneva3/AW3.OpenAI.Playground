@@ -1,3 +1,5 @@
-﻿namespace AW3.GR.OpenAI.Application.Authentication.Commands.Register;
+﻿using AW3.GR.OpenAI.Domain.Entities;
 
-public sealed record RegisterResponse(Guid Id, string Email, string Username, string Token);
+namespace AW3.GR.OpenAI.Application.Authentication.Commands.Register;
+
+public sealed record RegisterResponse(User User, string Token);

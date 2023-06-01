@@ -1,3 +1,5 @@
-﻿namespace AW3.GR.OpenAI.Application.Authentication.Queries.Login;
+﻿using AW3.GR.OpenAI.Domain.Entities;
 
-public sealed record LoginResponse(Guid Id, string Email, string Username, string Token);
+namespace AW3.GR.OpenAI.Application.Authentication.Queries.Login;
+
+public sealed record LoginResponse(User User, string Token);
