@@ -28,7 +28,6 @@ internal class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registe
         var user = new User { Email = request.Email, Username = request.Username, PasswordHash = request.Password };
         _userRepository.AddUser(user);
 
-        return Task.FromResult(new RegisterResponse(user,
-                                                    _jwtGenerator.GenerateToken(user.Id, user.Email)));
+        return Task.FromResult(new RegisterResponse(user, _jwtGenerator.GenerateToken(user)));
     }
 }

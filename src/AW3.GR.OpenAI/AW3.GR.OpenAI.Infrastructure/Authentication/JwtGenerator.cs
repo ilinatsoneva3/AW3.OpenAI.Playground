@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using AW3.GR.OpenAI.Application.Common.Interfaces.Authentication;
 using AW3.GR.OpenAI.Application.Common.Interfaces.Services;
+using AW3.GR.OpenAI.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -21,7 +22,7 @@ public class JwtGenerator : IJwtGenerator
         _jwtSettings = jwtOptions.Value;
     }
 
-    public string GenerateToken(Guid userId, string email)
+    public string GenerateToken(User user)
     {
         var signInCred = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
@@ -29,8 +30,8 @@ public class JwtGenerator : IJwtGenerator
 
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()!),
-            new Claim(JwtRegisteredClaimNames.UniqueName, email),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()!),
+            new Claim(JwtRegisteredClaimNames.UniqueName, user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
 

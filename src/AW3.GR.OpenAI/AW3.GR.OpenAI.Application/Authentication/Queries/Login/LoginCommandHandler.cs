@@ -26,7 +26,6 @@ internal sealed class LoginCommandHandler : IRequestHandler<LoginCommand, LoginR
         if (user.PasswordHash != request.Password)
             throw new Exception("Wrong password");
 
-        return Task.FromResult(new LoginResponse(user,
-                                                 _jwtGenerator.GenerateToken(user.Id, user.Email)));
+        return Task.FromResult(new LoginResponse(user, _jwtGenerator.GenerateToken(user)));
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace AW3.GR.OpenAI.Application.Common.Interfaces.Authentication;
+﻿using AW3.GR.OpenAI.Domain.Entities;
+
+namespace AW3.GR.OpenAI.Application.Common.Interfaces.Authentication;
 
 public interface IJwtGenerator
 {
-    string GenerateToken(Guid userId, string username);
+    string GenerateToken(User user);
 }
