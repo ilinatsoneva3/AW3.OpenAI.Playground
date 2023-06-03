@@ -1,4 +1,4 @@
-﻿using AW3.GR.OpenAI.Application.Common.Persistence.Interfaces;
+﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 using AW3.GR.OpenAI.Domain.Entities;
 
 namespace AW3.GR.OpenAI.Infrastructure.Persistence.Repositories;

@@ -1,6 +1,6 @@
 ﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Authentication;
+using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 using AW3.GR.OpenAI.Application.Common.Interfaces.Services;
-using AW3.GR.OpenAI.Application.Common.Persistence.Interfaces;
 using AW3.GR.OpenAI.Application.Interfaces;
 using AW3.GR.OpenAI.Infrastructure.Authentication;
 using AW3.GR.OpenAI.Infrastructure.Clients;

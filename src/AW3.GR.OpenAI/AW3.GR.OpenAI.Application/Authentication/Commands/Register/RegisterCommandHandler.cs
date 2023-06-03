@@ -1,5 +1,6 @@
-﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Authentication;
-using AW3.GR.OpenAI.Application.Common.Persistence.Interfaces;
+﻿using AW3.GR.OpenAI.Application.Common.Errors;
+using AW3.GR.OpenAI.Application.Common.Interfaces.Authentication;
+using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 using AW3.GR.OpenAI.Domain.Entities;
 using MediatR;
 
@@ -21,7 +22,7 @@ internal class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registe
     public Task<RegisterResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         if (_userRepository.GetUserByEmail(request.Email) != null)
-            throw new Exception("User already exists");
+            throw new DuplicateEmailAddressException();
 
         //TO DO: create user
 

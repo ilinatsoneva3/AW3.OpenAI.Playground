@@ -1,11 +1,9 @@
-using System.Reflection;
+using AW3.GR.OpenAI.API.Common.Errors;
 using AW3.GR.OpenAI.Application;
 using AW3.GR.OpenAI.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Configuration.AddEnvironmentVariables()
-                     .AddUserSecrets(Assembly.GetExecutingAssembly(), true);
 // Add services to the container.
 
 builder.Services
@@ -17,6 +15,8 @@ builder.Services.AddOpenAi(settings =>
 {
     settings.ApiKey = builder.Configuration["OpenAI:ApiKey"];
 });
+
+builder.Services.AddSingleton<ProblemDetailsFactory, AW3ProblemFactory>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -31,8 +31,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandler("/error");
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

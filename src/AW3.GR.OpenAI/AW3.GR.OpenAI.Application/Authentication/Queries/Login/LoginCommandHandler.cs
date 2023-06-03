@@ -1,5 +1,5 @@
 ﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Authentication;
-using AW3.GR.OpenAI.Application.Common.Persistence.Interfaces;
+using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 using AW3.GR.OpenAI.Domain.Entities;
 using MediatR;
 
