@@ -5,7 +5,7 @@ using AW3.GR.OpenAI.Domain.Entities;
 using ErrorOr;
 using MediatR;
 
-namespace AW3.GR.OpenAI.Application.Authentication.Queries.Login;
+namespace AW3.GR.OpenAI.Application.Modules.Authentication.Queries.Login;
 
 internal sealed class LoginCommandHandler : IRequestHandler<LoginCommand, ErrorOr<LoginResponse>>
 {

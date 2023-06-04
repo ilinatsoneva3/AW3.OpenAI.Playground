@@ -1,7 +1,7 @@
-﻿using AW3.GR.OpenAI.Application.Authentication.Commands.Register;
-using AW3.GR.OpenAI.Application.Authentication.Login;
-using AW3.GR.OpenAI.Application.Authentication.Queries.Login;
+﻿using AW3.GR.OpenAI.Application.Authentication.Login;
 using AW3.GR.OpenAI.Application.Authentication.Register;
+using AW3.GR.OpenAI.Application.Modules.Authentication.Commands.Register;
+using AW3.GR.OpenAI.Application.Modules.Authentication.Queries.Login;
 using AW3.GR.OpenAI.Contracts.Authentication;
 using AW3.GR.OpenAI.Domain.Common.Errors;
 using Microsoft.AspNetCore.Authorization;

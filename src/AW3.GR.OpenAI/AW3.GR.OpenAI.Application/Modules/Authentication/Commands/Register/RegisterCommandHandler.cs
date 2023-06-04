@@ -5,7 +5,7 @@ using AW3.GR.OpenAI.Domain.Entities;
 using ErrorOr;
 using MediatR;
 
-namespace AW3.GR.OpenAI.Application.Authentication.Commands.Register;
+namespace AW3.GR.OpenAI.Application.Modules.Authentication.Commands.Register;
 
 internal class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<RegisterResponse>>
 {

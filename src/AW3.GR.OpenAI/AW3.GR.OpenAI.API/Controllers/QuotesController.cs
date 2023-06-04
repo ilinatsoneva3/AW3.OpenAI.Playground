@@ -1,4 +1,4 @@
-﻿using AW3.GR.OpenAI.Application.Quotes.Commands.AskOpenAi;
+﻿using AW3.GR.OpenAI.Application.Modules.Quotes.Commands.AskOpenAi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
