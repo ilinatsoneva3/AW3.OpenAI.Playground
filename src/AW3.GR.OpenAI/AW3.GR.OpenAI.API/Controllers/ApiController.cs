@@ -1,5 +1,6 @@
 ﻿using AW3.GR.OpenAI.API.Http;
 using ErrorOr;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,21 @@ namespace AW3.GR.OpenAI.API.Controllers;
 public class ApiController : ControllerBase
 {
     private ISender _sender;
+    private IMapper _mapper;
 
     /// <summary>
     /// Mediator sender
     /// </summary>
     protected ISender Sender => _sender ??= HttpContext.RequestServices.GetService<ISender>();
 
+    /// <summary>
+    /// Mapster mapper
+    /// </summary>
+    protected IMapper Mapper => _mapper ??= HttpContext.RequestServices.GetService<IMapper>();
+
+    /// <summary>
+    /// Custom implementation of <see cref="BadRequestObjectResult"/> that returns <see cref="ProblemDetails"/> with <see cref="Error"/>s
+    /// </summary>
     protected IActionResult Problem(List<Error> errors)
     {
         HttpContext.Items.Add(HttpContextConstants.Errors, errors);

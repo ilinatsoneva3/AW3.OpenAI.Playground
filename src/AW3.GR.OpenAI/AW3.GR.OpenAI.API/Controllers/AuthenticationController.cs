@@ -16,10 +16,11 @@ public class AuthenticationController : ApiController
     [HttpPost("register")]
     public async Task<IActionResult> RegisterAsync(RegisterRequest request)
     {
-        var result = await Sender.Send(new RegisterCommand(request.UserName, request.Email, request.Password));
+        var command = Mapper.Map<RegisterCommand>(request);
+        var result = await Sender.Send(command);
 
         return result.Match(
-            result => Ok(MapToResult(result)),
+            result => Ok(Mapper.Map<AuthenticationResponse>(result)),
             Problem);
     }
 

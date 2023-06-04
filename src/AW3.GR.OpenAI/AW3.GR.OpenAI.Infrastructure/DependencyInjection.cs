@@ -20,13 +20,17 @@ public static class DependencyInjection
     {
         var jwtSettings = new JwtSettings();
         configuration.Bind(JwtSettings.SectionName, jwtSettings);
-
         services.AddSingleton(Options.Create(jwtSettings));
         services.AddSingleton<IJwtGenerator, JwtGenerator>();
 
-        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-
+        services.AddOpenAi(settings =>
+        {
+            settings.ApiKey = configuration["OpenAI:ApiKey"];
+        });
         services.AddScoped<IOpenAiClient, OpenAIClient>();
+
+
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         services.AddScoped<IUserRepository, UserRepository>();
 

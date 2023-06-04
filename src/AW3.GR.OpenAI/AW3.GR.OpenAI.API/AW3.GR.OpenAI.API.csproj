@@ -8,6 +8,8 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="mapster" Version="7.3.0" />
+		<PackageReference Include="mapster.dependencyinjection" Version="1.0.0" />
 		<PackageReference Include="MediatR" Version="12.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
