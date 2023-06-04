@@ -1,12 +1,13 @@
-﻿using AW3.GR.OpenAI.Application.Common.Errors;
-using AW3.GR.OpenAI.Application.Common.Interfaces.Authentication;
+﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Authentication;
 using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
+using AW3.GR.OpenAI.Domain.Common.Errors;
 using AW3.GR.OpenAI.Domain.Entities;
+using ErrorOr;
 using MediatR;
 
 namespace AW3.GR.OpenAI.Application.Authentication.Commands.Register;
 
-internal class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterResponse>
+internal class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<RegisterResponse>>
 {
     private readonly IUserRepository _userRepository;
     private readonly IJwtGenerator _jwtGenerator;
@@ -19,16 +20,14 @@ internal class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registe
         _jwtGenerator = jwtGenerator;
     }
 
-    public Task<RegisterResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<RegisterResponse>> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         if (_userRepository.GetUserByEmail(request.Email) != null)
-            throw new DuplicateEmailAddressException();
-
-        //TO DO: create user
+            return Errors.User.DuplicateEmail;
 
         var user = new User { Email = request.Email, Username = request.Username, PasswordHash = request.Password };
         _userRepository.AddUser(user);
 
-        return Task.FromResult(new RegisterResponse(user, _jwtGenerator.GenerateToken(user)));
+        return new RegisterResponse(user, _jwtGenerator.GenerateToken(user));
     }
 }

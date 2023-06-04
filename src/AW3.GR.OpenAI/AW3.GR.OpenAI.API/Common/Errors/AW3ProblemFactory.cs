@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using AW3.GR.OpenAI.API.Http;
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -90,13 +92,11 @@ public class AW3ProblemFactory : ProblemDetailsFactory
             problemDetails.Extensions["traceId"] = traceId;
         }
 
-        problemDetails.Extensions.Add("customProperty", "customValue");
+        var errors = httpContext?.Items[HttpContextConstants.Errors] as List<Error>;
 
-        //var errors = httpContext?.Items[HttpContextItemKeys.Errors] as List<Error>;
-
-        //if (errors is not null)
-        //{
-        //    problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code));
-        //}
+        if (errors != null)
+        {
+            problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code));
+        }
     }
 }

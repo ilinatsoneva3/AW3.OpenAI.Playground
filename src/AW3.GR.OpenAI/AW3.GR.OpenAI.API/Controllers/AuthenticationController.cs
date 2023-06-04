@@ -3,6 +3,7 @@ using AW3.GR.OpenAI.Application.Authentication.Login;
 using AW3.GR.OpenAI.Application.Authentication.Queries.Login;
 using AW3.GR.OpenAI.Application.Authentication.Register;
 using AW3.GR.OpenAI.Contracts.Authentication;
+using AW3.GR.OpenAI.Domain.Common.Errors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,10 +18,9 @@ public class AuthenticationController : ApiController
     {
         var result = await Sender.Send(new RegisterCommand(request.UserName, request.Email, request.Password));
 
-        return Ok(new AuthenticationResponse(result.User.Id,
-                                             result.User.Username,
-                                             result.User.Email,
-                                             result.Token));
+        return result.Match(
+            result => Ok(MapToResult(result)),
+            Problem);
     }
 
     [HttpPost("login")]
@@ -28,9 +28,18 @@ public class AuthenticationController : ApiController
     {
         var result = await Sender.Send(new LoginCommand(request.Email, request.Password));
 
-        return Ok(new AuthenticationResponse(result.User.Id,
-                                             result.User.Username,
-                                             result.User.Email,
-                                             result.Token));
+
+        if (result.IsError && result.FirstError == Errors.Authentication.InvalidCredentials)
+            return Problem(statusCode: StatusCodes.Status401Unauthorized, title: result.FirstError.Description);
+
+        return result.Match(
+            result => Ok(MapToResult(result)),
+            Problem);
     }
+
+    private static AuthenticationResponse MapToResult(LoginResponse result)
+        => new(result.User.Id, result.User.Username, result.User.Email, result.Token);
+
+    private static AuthenticationResponse MapToResult(RegisterResponse result)
+        => new(result.User.Id, result.User.Username, result.User.Email, result.Token);
 }
