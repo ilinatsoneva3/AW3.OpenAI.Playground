@@ -1,6 +1,8 @@
 using AW3.GR.OpenAI.API;
+using AW3.GR.OpenAI.API.Common.Middleware;
 using AW3.GR.OpenAI.Application;
 using AW3.GR.OpenAI.Infrastructure;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,9 @@ builder.Services
     .AddPresentation()
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
+
+builder.Host.UseSerilog((ctx, config) =>
+    config.ReadFrom.Configuration(ctx.Configuration));
 
 var app = builder.Build();
 
@@ -18,11 +23,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSerilogRequestLogging();
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+
 app.UseExceptionHandler("/error");
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication()
+   .UseAuthorization();
 
 app.MapControllers();
 
