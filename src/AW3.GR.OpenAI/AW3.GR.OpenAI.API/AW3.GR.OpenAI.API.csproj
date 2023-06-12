@@ -20,7 +20,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\AW3.GR.OpenAI.Application\AW3.GR.OpenAI.Application.csproj" />
-	  <ProjectReference Include="..\AW3.GR.OpenAI.Contracts\AW3.GR.OpenAI.Contracts.csproj" />
 	  <ProjectReference Include="..\AW3.GR.OpenAI.Infrastructure\AW3.GR.OpenAI.Infrastructure.csproj" />
 	</ItemGroup>
 
