@@ -15,23 +15,27 @@ builder.Host.UseSerilog((ctx, config) =>
     config.ReadFrom.Configuration(ctx.Configuration));
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        });
+    }
+
+    app.UseSerilogRequestLogging();
+    app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+
+    app.UseExceptionHandler("/error");
+    app.UseHttpsRedirection();
+
+    app.UseAuthentication()
+        .UseAuthorization();
+
+    app.MapControllers();
 }
-
-app.UseSerilogRequestLogging();
-app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
-
-app.UseExceptionHandler("/error");
-app.UseHttpsRedirection();
-
-app.UseAuthentication()
-    .UseAuthorization();
-
-app.MapControllers();
 
 app.Run();
