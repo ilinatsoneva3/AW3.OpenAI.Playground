@@ -6,6 +6,7 @@ namespace AW3.GR.OpenAI.API.Controllers;
 
 public class ErrorsController : ControllerBase
 {
+    [HttpGet]
     [Route("error")]
     public IActionResult Error()
     {

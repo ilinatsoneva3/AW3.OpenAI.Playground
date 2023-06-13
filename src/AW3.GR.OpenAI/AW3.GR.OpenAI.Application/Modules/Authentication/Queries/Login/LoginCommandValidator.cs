@@ -4,7 +4,7 @@ namespace AW3.GR.OpenAI.Application.Modules.Authentication.Queries.Login;
 
 public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
-    private const string _regex = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$";
+    private const string REGEX = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$";
 
     public LoginCommandValidator()
     {
@@ -14,6 +14,6 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
 
         RuleFor(x => x.Password)
             .NotEmpty()
-            .Matches(_regex);
+            .Matches(REGEX);
     }
 }

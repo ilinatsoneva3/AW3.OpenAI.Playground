@@ -1,5 +1,5 @@
-﻿using AW3.GR.OpenAI.Domain.Entities;
+﻿using AW3.GR.OpenAI.Application.Modules.Authentication.Common;
 
 namespace AW3.GR.OpenAI.Application.Modules.Authentication.Commands.Register;
 
-public sealed record RegisterResponse(User User, string Token);
+public sealed record RegisterResponse(UserDto User, string Token);

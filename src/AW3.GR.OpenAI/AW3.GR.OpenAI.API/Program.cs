@@ -30,7 +30,7 @@ app.UseExceptionHandler("/error");
 app.UseHttpsRedirection();
 
 app.UseAuthentication()
-   .UseAuthorization();
+    .UseAuthorization();
 
 app.MapControllers();
 
