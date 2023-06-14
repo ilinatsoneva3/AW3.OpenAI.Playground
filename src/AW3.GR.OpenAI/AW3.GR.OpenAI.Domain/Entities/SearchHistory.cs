@@ -8,11 +8,11 @@ public class SearchHistory : AggregateRoot<SearchHistoryId, Guid>
 {
     public OpenAiQuestionType QuestionType { get; private set; }
 
-    public string SearchText { get; private set; } = null!;
+    public string SearchText { get; private set; }
 
     public DateTime SearchDate { get; private set; } = DateTime.UtcNow;
 
-    public string SearchResult { get; private set; } = null!;
+    public string SearchResult { get; private set; }
 
     public UserId UserId { get; private set; }
 
