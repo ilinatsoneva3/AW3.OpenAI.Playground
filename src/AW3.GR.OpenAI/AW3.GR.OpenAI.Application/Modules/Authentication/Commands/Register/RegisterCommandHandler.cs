@@ -30,7 +30,8 @@ internal class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr
         if (_userRepository.GetUserByEmail(request.Email) != null)
             return Errors.User.DuplicateEmail;
 
-        var user = new User { Email = request.Email, Username = request.Username, PasswordHash = request.Password };
+        var user = User.Create(request.Username, request.Email, request.Password);
+
         _userRepository.AddUser(user);
 
         return new RegisterResponse(_mapper.Map<UserDto>(user), _jwtGenerator.GenerateToken(user));

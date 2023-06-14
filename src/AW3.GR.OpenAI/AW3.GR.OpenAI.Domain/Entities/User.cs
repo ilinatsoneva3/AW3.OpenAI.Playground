@@ -1,9 +1,26 @@
-﻿namespace AW3.GR.OpenAI.Domain.Entities;
+﻿using AW3.GR.OpenAI.Domain.Common.Models;
+using AW3.GR.OpenAI.Domain.ValueObjects;
 
-public class User
+namespace AW3.GR.OpenAI.Domain.Entities;
+
+public class User : AggregateRoot<UserId, Guid>
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
-    public string Username { get; set; } = null!;
-    public string Email { get; set; } = null!;
-    public string PasswordHash { get; set; } = null!;
+    public string Username { get; private set; }
+
+    public string Email { get; private set; }
+
+    public string PasswordHash { get; private set; }
+
+    public User(string username, string email, string password) : base(UserId.CreateUnique())
+    {
+        Username = username;
+        Email = email;
+        PasswordHash = password;
+    }
+
+    public static User Create(string username, string email, string password) => new(username, email, password);
+
+    private User()
+    {
+    }
 }
