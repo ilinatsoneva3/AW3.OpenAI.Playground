@@ -1,4 +1,5 @@
-﻿using AW3.GR.OpenAI.API.Common.Errors;
+﻿using System.Text.Json.Serialization;
+using AW3.GR.OpenAI.API.Common.Errors;
 using AW3.GR.OpenAI.API.Common.Middleware;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.OpenApi.Models;
@@ -9,7 +10,9 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
-        services.AddControllers();
+        services.AddControllers()
+                .AddJsonOptions(options =>
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
         services.ConfigureSwagger();
 
