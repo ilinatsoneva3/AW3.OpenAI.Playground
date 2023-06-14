@@ -7,6 +7,7 @@ using AW3.GR.OpenAI.Infrastructure.Authentication;
 using AW3.GR.OpenAI.Infrastructure.Clients;
 using AW3.GR.OpenAI.Infrastructure.Persistence.Repositories;
 using AW3.GR.OpenAI.Infrastructure.Services;
+using AW3.GR.OpenAI.Infrastructure.Services.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -28,7 +29,11 @@ public static class DependencyInjection
         });
         services.AddScoped<IOpenAiClient, OpenAIClient>();
 
+        services.Configure<PasswordHashingOptions>(
+            configuration.GetSection(PasswordHashingOptions.TITLE));
+
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
         services.AddScoped<IUserRepository, UserRepository>();
 
