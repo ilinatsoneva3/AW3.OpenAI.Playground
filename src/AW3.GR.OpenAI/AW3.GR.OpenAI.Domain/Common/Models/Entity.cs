@@ -26,12 +26,12 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>
 
     public static bool operator ==(Entity<TId>? first, Entity<TId>? second)
     {
-        return first.Equals(second);
+        return Equals(first, second);
     }
 
     public static bool operator !=(Entity<TId>? first, Entity<TId>? second)
     {
-        return !(first == second);
+        return !Equals(first, second);
     }
 
     public override int GetHashCode()

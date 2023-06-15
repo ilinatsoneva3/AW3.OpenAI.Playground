@@ -8,6 +8,7 @@ public class AuthenticationMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<User, UserDto>();
+        config.NewConfig<User, UserDto>()
+            .Map(dest => dest.Id, src => src.Id.ToString());
     }
 }

@@ -38,14 +38,13 @@ public class PasswordHasher : IPasswordHasher
             return false;
         }
 
-        var result = VerifyHashedPasswordV3(decodedHashedPassword, password, out int embeddedIterCount);
+        var result = VerifyHashedPassword(decodedHashedPassword, password, out int embeddedIterCount);
         return result && embeddedIterCount >= _iterationCount;
     }
 
-    private static bool VerifyHashedPasswordV3(byte[] hashedPassword, string password, out int iterCount)
+    private static bool VerifyHashedPassword(byte[] hashedPassword, string password, out int iterCount)
     {
         iterCount = default;
-        var prf = default(KeyDerivationPrf);
 
         try
         {
@@ -71,7 +70,7 @@ public class PasswordHasher : IPasswordHasher
             Buffer.BlockCopy(hashedPassword, 13 + salt.Length, expectedSubkey, 0, expectedSubkey.Length);
 
             // Hash the incoming password and verify it
-            byte[] actualSubkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, subkeyLength);
+            byte[] actualSubkey = KeyDerivation.Pbkdf2(password, salt, KeyDerivationPrf.HMACSHA512, iterCount, subkeyLength);
 
             return CryptographicOperations.FixedTimeEquals(actualSubkey, expectedSubkey);
         }

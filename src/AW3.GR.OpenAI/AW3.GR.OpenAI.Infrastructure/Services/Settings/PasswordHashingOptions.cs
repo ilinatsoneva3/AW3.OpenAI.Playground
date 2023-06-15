@@ -10,6 +10,5 @@ public class PasswordHashingOptions
 
     public int IterationCount { get; set; } = 100_000;
 
-    // for unit testing
     internal RandomNumberGenerator Rng { get; set; } = _defaultRng;
 }
