@@ -32,11 +32,13 @@ public static class DependencyInjection
         services.Configure<PasswordHashingOptions>(
             configuration.GetSection(PasswordHashingOptions.TITLE));
 
-        services.AddScoped<IDateTimeProvider, DateTimeProvider>();
-        services.AddScoped<IPasswordHasher, PasswordHasher>();
+        services.AddTransient<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IUserContextService, UserContextService>();
+        services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ISearchHistoryRepository, SearchHistoryRepository>();
+
 
         return services;
     }

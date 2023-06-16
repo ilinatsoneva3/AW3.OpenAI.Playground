@@ -7,9 +7,9 @@ namespace AW3.GR.OpenAI.Infrastructure.Services;
 
 public class UserContextService : IUserContextService
 {
-    private readonly HttpContextAccessor _httpContext;
+    private readonly IHttpContextAccessor _httpContext;
 
-    public UserContextService(HttpContextAccessor httpContext)
+    public UserContextService(IHttpContextAccessor httpContext)
     {
         _httpContext = httpContext;
     }

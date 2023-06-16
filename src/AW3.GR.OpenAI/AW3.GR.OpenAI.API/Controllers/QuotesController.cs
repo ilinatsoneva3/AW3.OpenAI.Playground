@@ -6,8 +6,10 @@ namespace AW3.GR.OpenAI.API.Controllers;
 public class QuotesController : ApiController
 {
     [HttpPost("ask-open-ai")]
-    public async Task<AskOpenAiResponse> AskOpenAiAsync([FromBody] AskOpenAiQuery request)
+    public async Task<IActionResult> AskOpenAiAsync([FromBody] AskOpenAiQuery request)
     {
-        return await Sender.Send(request);
+        var result = await Sender.Send(request);
+
+        return result.Match(Ok, Problem);
     }
 }
