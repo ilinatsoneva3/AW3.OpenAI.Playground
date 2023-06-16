@@ -1,5 +1,5 @@
 ﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
-using AW3.GR.OpenAI.Domain.Entities;
+using AW3.GR.OpenAI.Domain.UserAggregate;
 
 namespace AW3.GR.OpenAI.Infrastructure.Persistence.Repositories;
 

@@ -1,8 +1,9 @@
-﻿using AW3.GR.OpenAI.Domain.Common.Models;
-using AW3.GR.OpenAI.Domain.Enums;
-using AW3.GR.OpenAI.Domain.ValueObjects;
+﻿using AW3.GR.OpenAI.Domain.Common.Enums;
+using AW3.GR.OpenAI.Domain.Common.Models;
+using AW3.GR.OpenAI.Domain.SearchHistoryAggregate.ValueObjects;
+using AW3.GR.OpenAI.Domain.UserAggregate.ValueObjects;
 
-namespace AW3.GR.OpenAI.Domain.Entities;
+namespace AW3.GR.OpenAI.Domain.SearchHistoryAggregate;
 
 public class SearchHistory : AggregateRoot<SearchHistoryId, Guid>
 {

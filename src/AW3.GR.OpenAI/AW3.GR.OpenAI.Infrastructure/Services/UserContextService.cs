@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using AW3.GR.OpenAI.Application.Common.Interfaces.Services;
-using AW3.GR.OpenAI.Domain.ValueObjects;
+using AW3.GR.OpenAI.Domain.UserAggregate.ValueObjects;
 using Microsoft.AspNetCore.Http;
 
 namespace AW3.GR.OpenAI.Infrastructure.Services;

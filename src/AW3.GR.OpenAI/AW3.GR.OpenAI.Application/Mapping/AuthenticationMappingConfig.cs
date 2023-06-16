@@ -1,5 +1,5 @@
 ﻿using AW3.GR.OpenAI.Application.Modules.Authentication.Common;
-using AW3.GR.OpenAI.Domain.Entities;
+using AW3.GR.OpenAI.Domain.UserAggregate;
 using Mapster;
 
 namespace AW3.GR.OpenAI.API.Common.Mapping;

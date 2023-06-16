@@ -3,7 +3,7 @@ using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 using AW3.GR.OpenAI.Application.Common.Interfaces.Services;
 using AW3.GR.OpenAI.Application.Modules.Authentication.Common;
 using AW3.GR.OpenAI.Domain.Common.Errors;
-using AW3.GR.OpenAI.Domain.Entities;
+using AW3.GR.OpenAI.Domain.UserAggregate;
 using ErrorOr;
 using MapsterMapper;
 using MediatR;

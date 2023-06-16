@@ -1,4 +1,4 @@
-﻿namespace AW3.GR.OpenAI.Domain.Enums;
+﻿namespace AW3.GR.OpenAI.Domain.Common.Enums;
 
 public enum OpenAiQuestionType
 {

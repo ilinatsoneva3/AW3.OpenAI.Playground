@@ -1,7 +1,7 @@
 ﻿using AW3.GR.OpenAI.Domain.Common.Models;
-using AW3.GR.OpenAI.Domain.ValueObjects;
+using AW3.GR.OpenAI.Domain.UserAggregate.ValueObjects;
 
-namespace AW3.GR.OpenAI.Domain.Entities;
+namespace AW3.GR.OpenAI.Domain.UserAggregate;
 
 public class User : AggregateRoot<UserId, Guid>
 {

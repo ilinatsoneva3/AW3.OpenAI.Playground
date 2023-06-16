@@ -1,4 +1,4 @@
-﻿using AW3.GR.OpenAI.Domain.Enums;
+﻿using AW3.GR.OpenAI.Domain.Common.Enums;
 using ErrorOr;
 using MediatR;
 

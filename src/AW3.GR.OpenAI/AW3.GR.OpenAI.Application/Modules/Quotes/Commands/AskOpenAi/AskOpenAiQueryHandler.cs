@@ -1,8 +1,8 @@
 ﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 using AW3.GR.OpenAI.Application.Common.Interfaces.Services;
 using AW3.GR.OpenAI.Application.Interfaces;
+using AW3.GR.OpenAI.Domain.Common.Enums;
 using AW3.GR.OpenAI.Domain.Common.Errors;
-using AW3.GR.OpenAI.Domain.Enums;
 using ErrorOr;
 using MediatR;
 
@@ -41,7 +41,7 @@ internal sealed class AskOpenAiQueryHandler : IRequestHandler<AskOpenAiQuery, Er
             _ => throw new NotImplementedException()
         };
 
-        var searchHistoryEntryToAdd = Domain.Entities.SearchHistory.Create(
+        var searchHistoryEntryToAdd = Domain.SearchHistoryAggregate.SearchHistory.Create(
             request.Type,
             request.Name,
             _dateTimeProvider.UtcNow,

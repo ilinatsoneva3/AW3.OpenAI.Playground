@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using AW3.GR.OpenAI.Application.Common.Interfaces.Authentication;
 using AW3.GR.OpenAI.Application.Common.Interfaces.Services;
-using AW3.GR.OpenAI.Domain.Entities;
+using AW3.GR.OpenAI.Domain.UserAggregate;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
