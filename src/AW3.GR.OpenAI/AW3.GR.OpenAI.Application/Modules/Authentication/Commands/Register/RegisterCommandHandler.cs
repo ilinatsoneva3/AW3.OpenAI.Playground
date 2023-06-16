@@ -10,7 +10,7 @@ using MediatR;
 
 namespace AW3.GR.OpenAI.Application.Modules.Authentication.Commands.Register;
 
-internal class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<RegisterResponse>>
+internal sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<RegisterResponse>>
 {
     private readonly IUserRepository _userRepository;
     private readonly IJwtGenerator _jwtGenerator;

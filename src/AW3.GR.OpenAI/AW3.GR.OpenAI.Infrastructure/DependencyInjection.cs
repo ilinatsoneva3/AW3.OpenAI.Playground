@@ -32,8 +32,9 @@ public static class DependencyInjection
         services.Configure<PasswordHashingOptions>(
             configuration.GetSection(PasswordHashingOptions.TITLE));
 
-        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-        services.AddSingleton<IPasswordHasher, PasswordHasher>();
+        services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
+        services.AddScoped<IUserContextService, UserContextService>();
 
         services.AddScoped<IUserRepository, UserRepository>();
 
