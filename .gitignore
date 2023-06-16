@@ -364,3 +364,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/src/AW3.GR.OpenAI/AW3.GR.OpenAI.API/appsettings.Development.json
