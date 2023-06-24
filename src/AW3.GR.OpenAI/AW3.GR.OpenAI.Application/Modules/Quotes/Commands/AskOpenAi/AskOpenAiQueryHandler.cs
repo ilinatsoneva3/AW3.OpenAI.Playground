@@ -31,17 +31,24 @@ internal sealed class AskOpenAiQueryHandler : IRequestHandler<AskOpenAiQuery, Er
     {
         var userId = _userContextService.UserId;
 
-        if (userId == null)
+        if (userId is null)
             return Errors.User.UserNotFound;
 
-        var result = request.Type switch
-        {
-            OpenAiQuestionType.Book => await _aiClient.GetMostPopularQuoteBookNameAsync(request.Name),
-            OpenAiQuestionType.Author => await _aiClient.GetMostPopularQuoteByAuthorNameAsync(request.Name),
-            _ => throw new NotImplementedException()
-        };
+        var result = string.Empty;
 
-        var searchHistoryEntryToAdd = Domain.SearchHistoryAggregate.SearchHistory.Create(
+        switch (request.Type.Name)
+        {
+            case nameof(OpenAiQuestionType.Book):
+                result = await _aiClient.GetMostPopularQuoteBookNameAsync(request.Name);
+                break;
+            case nameof(OpenAiQuestionType.Author):
+                result = await _aiClient.GetMostPopularQuoteByAuthorNameAsync(request.Name);
+                break;
+            default:
+                break;
+        }
+
+        var searchHistoryEntryToAdd = Domain.SearchHistories.SearchHistory.Create(
             request.Type,
             request.Name,
             _dateTimeProvider.UtcNow,

@@ -5,9 +5,11 @@ using AW3.GR.OpenAI.Application.Common.Interfaces.Services;
 using AW3.GR.OpenAI.Application.Interfaces;
 using AW3.GR.OpenAI.Infrastructure.Authentication;
 using AW3.GR.OpenAI.Infrastructure.Clients;
+using AW3.GR.OpenAI.Infrastructure.Persistence;
 using AW3.GR.OpenAI.Infrastructure.Persistence.Repositories;
 using AW3.GR.OpenAI.Infrastructure.Services;
 using AW3.GR.OpenAI.Infrastructure.Services.Settings;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -21,7 +23,9 @@ public static class DependencyInjection
         this IServiceCollection services,
         ConfigurationManager configuration)
     {
-        services.ConfigureAuthentication(configuration);
+        services
+            .ConfigureAuthentication(configuration)
+            .AddPersistence();
 
         services.AddOpenAi(settings =>
         {
@@ -36,9 +40,19 @@ public static class DependencyInjection
         services.AddScoped<IUserContextService, UserContextService>();
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
+
+        return services;
+    }
+
+    private static IServiceCollection AddPersistence(this IServiceCollection services)
+    {
+        services.AddDbContext<GROpenAIDbContext>(options =>
+        {
+            options.UseSqlServer("");
+        });
+
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ISearchHistoryRepository, SearchHistoryRepository>();
-
 
         return services;
     }

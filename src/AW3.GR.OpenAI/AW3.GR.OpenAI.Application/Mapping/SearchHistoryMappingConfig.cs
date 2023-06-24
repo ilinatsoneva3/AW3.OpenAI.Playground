@@ -1,5 +1,5 @@
 ﻿using AW3.GR.OpenAI.Application.Modules.SearchHistory.Queries.GetSearchHistoryForUser;
-using AW3.GR.OpenAI.Domain.SearchHistoryAggregate;
+using AW3.GR.OpenAI.Domain.SearchHistories;
 using Mapster;
 
 namespace AW3.GR.OpenAI.Application.Mapping;

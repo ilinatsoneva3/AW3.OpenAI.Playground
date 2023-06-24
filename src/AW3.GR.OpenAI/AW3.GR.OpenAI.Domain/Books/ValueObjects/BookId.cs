@@ -9,4 +9,6 @@ public class BookId : AggregateRootId<Guid>
     }
 
     public static BookId CreateUnique() => new(Guid.NewGuid());
+
+    public static BookId Create(Guid value) => new(value);
 }

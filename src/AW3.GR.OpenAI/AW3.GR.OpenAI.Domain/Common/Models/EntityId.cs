@@ -2,21 +2,23 @@
 
 public abstract class EntityId<TId> : ValueObject
 {
-    public TId Id { get; }
+    public TId Value { get; private set; }
 
+    protected EntityId(TId value)
+    {
+        Value = value;
+    }
+
+    public override IEnumerable<object?> GetEqualityComponents()
+    {
+        yield return Value;
+    }
+
+    public override string? ToString() => Value?.ToString() ?? base.ToString();
+
+#pragma warning disable CS8618
     protected EntityId()
     {
     }
-
-    protected EntityId(TId id)
-    {
-        Id = id;
-    }
-
-    protected override IEnumerable<object?> GetEqualityComponents()
-    {
-        yield return Id;
-    }
-
-    public override string? ToString() => Id?.ToString() ?? base.ToString();
+#pragma warning restore CS8618
 }

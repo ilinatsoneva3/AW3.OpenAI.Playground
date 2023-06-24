@@ -1,17 +1,24 @@
 ﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
-using AW3.GR.OpenAI.Domain.SearchHistoryAggregate;
+using AW3.GR.OpenAI.Domain.SearchHistories;
 using AW3.GR.OpenAI.Domain.Users.ValueObjects;
 
 namespace AW3.GR.OpenAI.Infrastructure.Persistence.Repositories;
 
 public class SearchHistoryRepository : ISearchHistoryRepository
 {
-    private static readonly List<SearchHistory> _searchHistory = new();
+    private readonly GROpenAIDbContext _dbContext;
+
+    public SearchHistoryRepository(GROpenAIDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+
     public void CreateSearchHistoryEntryAsync(SearchHistory entity)
     {
-        _searchHistory.Add(entity);
+        _dbContext.Add(entity);
+        _dbContext.SaveChanges();
     }
 
     public IEnumerable<SearchHistory> GetAllByUserIdAsync(UserId userId)
-        => _searchHistory.Where(sh => sh.UserId.Equals(userId));
+        => _dbContext.SearchHistories.Where(sh => sh.UserId.Equals(userId));
 }

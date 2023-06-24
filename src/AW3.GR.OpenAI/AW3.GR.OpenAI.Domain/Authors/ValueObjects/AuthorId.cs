@@ -9,4 +9,6 @@ public class AuthorId : AggregateRootId<Guid>
     }
 
     public static AuthorId CreateUnique() => new(Guid.NewGuid());
+
+    public static AuthorId Create(Guid value) => new(value);
 }

@@ -5,12 +5,19 @@ namespace AW3.GR.OpenAI.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private static readonly List<User> _users = new();
+    private readonly GROpenAIDbContext _dbContext;
+
+    public UserRepository(GROpenAIDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+
     public void AddUser(User user)
     {
-        _users.Add(user);
+        _dbContext.Add(user);
+        _dbContext.SaveChanges();
     }
 
     public User? GetUserByEmail(string email)
-        => _users.SingleOrDefault(u => u.Email == email);
+        => _dbContext.Users.SingleOrDefault(u => u.Email == email);
 }

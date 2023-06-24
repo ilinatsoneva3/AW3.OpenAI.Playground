@@ -3,7 +3,7 @@ using AW3.GR.OpenAI.Domain.Common.Models;
 using AW3.GR.OpenAI.Domain.SearchHistories.ValueObjects;
 using AW3.GR.OpenAI.Domain.Users.ValueObjects;
 
-namespace AW3.GR.OpenAI.Domain.SearchHistoryAggregate;
+namespace AW3.GR.OpenAI.Domain.SearchHistories;
 
 public class SearchHistory : AggregateRoot<SearchHistoryId, Guid>
 {

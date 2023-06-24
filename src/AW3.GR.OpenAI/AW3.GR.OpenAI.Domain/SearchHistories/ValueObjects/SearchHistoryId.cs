@@ -9,4 +9,6 @@ public class SearchHistoryId : AggregateRootId<Guid>
     }
 
     public static SearchHistoryId CreateUnique() => new(Guid.NewGuid());
+
+    public static SearchHistoryId Create(Guid value) => new(value);
 }
