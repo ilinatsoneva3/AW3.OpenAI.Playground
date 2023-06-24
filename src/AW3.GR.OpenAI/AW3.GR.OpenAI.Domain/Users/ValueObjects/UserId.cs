@@ -1,6 +1,6 @@
 ﻿using AW3.GR.OpenAI.Domain.Common.Models;
 
-namespace AW3.GR.OpenAI.Domain.UserAggregate.ValueObjects;
+namespace AW3.GR.OpenAI.Domain.Users.ValueObjects;
 
 public sealed class UserId : AggregateRootId<Guid>
 {

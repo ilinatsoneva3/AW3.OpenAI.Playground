@@ -1,5 +1,5 @@
 ﻿using AW3.GR.OpenAI.Domain.SearchHistoryAggregate;
-using AW3.GR.OpenAI.Domain.UserAggregate.ValueObjects;
+using AW3.GR.OpenAI.Domain.Users.ValueObjects;
 
 namespace AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 

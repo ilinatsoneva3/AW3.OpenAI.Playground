@@ -1,7 +1,7 @@
 ﻿using AW3.GR.OpenAI.Domain.Common.Enums;
 using AW3.GR.OpenAI.Domain.Common.Models;
-using AW3.GR.OpenAI.Domain.SearchHistoryAggregate.ValueObjects;
-using AW3.GR.OpenAI.Domain.UserAggregate.ValueObjects;
+using AW3.GR.OpenAI.Domain.SearchHistories.ValueObjects;
+using AW3.GR.OpenAI.Domain.Users.ValueObjects;
 
 namespace AW3.GR.OpenAI.Domain.SearchHistoryAggregate;
 

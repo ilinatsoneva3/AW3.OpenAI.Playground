@@ -1,4 +1,4 @@
-﻿using AW3.GR.OpenAI.Domain.SearchHistoryAggregate.ValueObjects;
+﻿using AW3.GR.OpenAI.Domain.SearchHistories.ValueObjects;
 
 namespace AW3.GR.OpenAI.Application.Modules.SearchHistory.Queries.GetSearchHistoryForUser;
 
