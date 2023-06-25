@@ -8,14 +8,14 @@ using MediatR;
 
 namespace AW3.GR.OpenAI.Application.Modules.Quotes.Commands.AskOpenAi;
 
-internal sealed class AskOpenAiQueryHandler : IRequestHandler<AskOpenAiQuery, ErrorOr<AskOpenAiResponse>>
+internal sealed class OpenAiQueryHandler : IRequestHandler<OpenAiQuery, ErrorOr<OpenAiResponse>>
 {
     private readonly ISearchHistoryRepository _searchHistoryRepository;
     private readonly IOpenAiClient _aiClient;
     private readonly IDateTimeProvider _dateTimeProvider;
     private readonly IUserContextService _userContextService;
 
-    public AskOpenAiQueryHandler(
+    public OpenAiQueryHandler(
         ISearchHistoryRepository searchHistoryRepository,
         IOpenAiClient aiClient,
         IDateTimeProvider dateTimeProvider,
@@ -27,7 +27,7 @@ internal sealed class AskOpenAiQueryHandler : IRequestHandler<AskOpenAiQuery, Er
         _userContextService = userContextService;
     }
 
-    public async Task<ErrorOr<AskOpenAiResponse>> Handle(AskOpenAiQuery request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<OpenAiResponse>> Handle(OpenAiQuery request, CancellationToken cancellationToken)
     {
         var userId = _userContextService.UserId;
 
@@ -36,7 +36,12 @@ internal sealed class AskOpenAiQueryHandler : IRequestHandler<AskOpenAiQuery, Er
 
         var result = string.Empty;
 
-        switch (request.Type.Name)
+        OpenAiQuestionType.TryFromName(request.Type, out OpenAiQuestionType type);
+
+        if (type is null)
+            return Errors.Quote.InvalidQuestionType;
+
+        switch (request.Type)
         {
             case nameof(OpenAiQuestionType.Book):
                 result = await _aiClient.GetMostPopularQuoteBookNameAsync(request.Name);
@@ -49,7 +54,7 @@ internal sealed class AskOpenAiQueryHandler : IRequestHandler<AskOpenAiQuery, Er
         }
 
         var searchHistoryEntryToAdd = Domain.SearchHistories.SearchHistory.Create(
-            request.Type,
+            type,
             request.Name,
             _dateTimeProvider.UtcNow,
             result,
@@ -57,6 +62,6 @@ internal sealed class AskOpenAiQueryHandler : IRequestHandler<AskOpenAiQuery, Er
 
         _searchHistoryRepository.CreateSearchHistoryEntryAsync(searchHistoryEntryToAdd);
 
-        return new AskOpenAiResponse(result);
+        return new OpenAiResponse(result);
     }
 }

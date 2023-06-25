@@ -2,11 +2,11 @@
 
 namespace AW3.GR.OpenAI.Application.Modules.Quotes.Commands.AskOpenAi;
 
-public class AskOpenAiQueryValidator : AbstractValidator<AskOpenAiQuery>
+public class OpenAiQueryValidator : AbstractValidator<OpenAiQuery>
 {
-    public AskOpenAiQueryValidator()
+    public OpenAiQueryValidator()
     {
         RuleFor(x => x.Name).NotEmpty();
-        RuleFor(x => x.Type).IsInEnum();
+        RuleFor(x => x.Type).NotEmpty();
     }
 }

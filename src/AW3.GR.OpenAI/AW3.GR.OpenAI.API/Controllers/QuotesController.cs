@@ -5,8 +5,8 @@ namespace AW3.GR.OpenAI.API.Controllers;
 
 public class QuotesController : ApiController
 {
-    [HttpPost("ask-open-ai")]
-    public async Task<IActionResult> AskOpenAiAsync([FromBody] AskOpenAiQuery request)
+    [HttpPost("open-ai")]
+    public async Task<IActionResult> AskOpenAiAsync([FromBody] OpenAiQuery request)
     {
         var result = await Sender.Send(request);
 
