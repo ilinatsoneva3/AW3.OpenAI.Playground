@@ -9,4 +9,6 @@ public class QuoteId : AggregateRootId<Guid>
     }
 
     public static QuoteId CreateUnique() => new(Guid.NewGuid());
+
+    public static QuoteId Create(Guid value) => new(value);
 }

@@ -13,15 +13,15 @@ public class Book : AggregateRoot<BookId, Guid>
 
     public string? Description { get; private set; }
 
-    public AuthorId Author { get; private set; }
+    public AuthorId AuthorId { get; private set; }
 
     public IReadOnlyList<QuoteId> QuoteIds => _quoteIds.AsReadOnly();
 
-    public Book(string title, string? description, AuthorId author) : base(BookId.CreateUnique())
+    public Book(string title, string? description, AuthorId authorId) : base(BookId.CreateUnique())
     {
         Title = title;
         Description = description;
-        Author = author;
+        AuthorId = authorId;
     }
 
     public void AddDescription(string description)

@@ -11,6 +11,11 @@ public class SearchHistoryConfiguration : IEntityTypeConfiguration<SearchHistory
 {
     public void Configure(EntityTypeBuilder<SearchHistory> builder)
     {
+        ConfigureSearchHistory(builder);
+    }
+
+    private void ConfigureSearchHistory(EntityTypeBuilder<SearchHistory> builder)
+    {
         builder.ToTable("SearchHistories");
 
         builder.HasKey(sh => sh.Id);
@@ -34,7 +39,7 @@ public class SearchHistoryConfiguration : IEntityTypeConfiguration<SearchHistory
 
         builder.Property(sh => sh.QuestionType)
             .HasConversion(
-            questionType => questionType.Value,
-            value => OpenAiQuestionType.FromValue(value));
+                questionType => questionType.Value,
+                value => OpenAiQuestionType.FromValue(value));
     }
 }

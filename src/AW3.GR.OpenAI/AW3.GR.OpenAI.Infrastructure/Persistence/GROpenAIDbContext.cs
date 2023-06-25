@@ -1,4 +1,6 @@
 ﻿using AW3.GR.OpenAI.Domain.Authors;
+using AW3.GR.OpenAI.Domain.Books;
+using AW3.GR.OpenAI.Domain.Quotes;
 using AW3.GR.OpenAI.Domain.SearchHistories;
 using AW3.GR.OpenAI.Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,10 @@ public class GROpenAIDbContext : DbContext
     }
 
     public DbSet<Author> Authors { get; set; } = null!;
+
+    public DbSet<Book> Books { get; set; } = null!;
+
+    public DbSet<Quote> Quotes { get; set; } = null!;
 
     public DbSet<SearchHistory> SearchHistories { get; set; } = null!;
 
