@@ -1,5 +1,4 @@
-﻿using AW3.GR.OpenAI.Domain.Common.Enums;
-using AW3.GR.OpenAI.Domain.Common.Models;
+﻿using AW3.GR.OpenAI.Domain.Common.Models;
 using AW3.GR.OpenAI.Domain.SearchHistories.ValueObjects;
 using AW3.GR.OpenAI.Domain.Users.ValueObjects;
 
@@ -7,8 +6,6 @@ namespace AW3.GR.OpenAI.Domain.SearchHistories;
 
 public class SearchHistory : AggregateRoot<SearchHistoryId, Guid>
 {
-    public OpenAiQuestionType QuestionType { get; private set; }
-
     public string SearchText { get; private set; }
 
     public DateTime SearchDate { get; private set; } = DateTime.UtcNow;
@@ -18,13 +15,11 @@ public class SearchHistory : AggregateRoot<SearchHistoryId, Guid>
     public UserId UserId { get; private set; }
 
     public SearchHistory(
-        OpenAiQuestionType questionType,
         string searchText,
         DateTime searchDate,
         string searchResult,
         UserId userId) : base(SearchHistoryId.CreateUnique())
     {
-        QuestionType = questionType;
         SearchText = searchText;
         SearchDate = searchDate;
         SearchResult = searchResult;
@@ -32,12 +27,11 @@ public class SearchHistory : AggregateRoot<SearchHistoryId, Guid>
     }
 
     public static SearchHistory Create(
-        OpenAiQuestionType questionType,
         string searchText,
         DateTime searchDate,
         string searchResult,
         UserId userId)
-        => new(questionType, searchText, searchDate, searchResult, userId);
+        => new(searchText, searchDate, searchResult, userId);
 
     private SearchHistory()
     {

@@ -10,7 +10,6 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
     public void Configure(EntityTypeBuilder<Author> builder)
     {
         ConfigureAuthor(builder);
-        ConfigureAuthorBooks(builder);
         ConfigureAuthorQuotes(builder);
     }
 
@@ -56,26 +55,6 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
 
         builder.Metadata
             .FindNavigation(nameof(Author.QuoteIds))!
-            .SetPropertyAccessMode(PropertyAccessMode.Field);
-    }
-
-    private void ConfigureAuthorBooks(EntityTypeBuilder<Author> builder)
-    {
-        builder.OwnsMany(a => a.BookIds, b =>
-        {
-            b.ToTable("AuthorBookIds");
-
-            b.WithOwner().HasForeignKey("AuthorId");
-
-            b.HasKey("Id");
-
-            b.Property(b => b.Value)
-                .HasColumnName("BookId")
-                .ValueGeneratedNever();
-        });
-
-        builder.Metadata
-            .FindNavigation(nameof(Author.BookIds))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

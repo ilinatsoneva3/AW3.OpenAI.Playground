@@ -1,5 +1,4 @@
 ﻿using AW3.GR.OpenAI.Domain.AuthorAggregate.ValueObjects;
-using AW3.GR.OpenAI.Domain.Books.ValueObjects;
 using AW3.GR.OpenAI.Domain.Quotes;
 using AW3.GR.OpenAI.Domain.Quotes.ValueObjects;
 using Microsoft.EntityFrameworkCore;
@@ -33,10 +32,5 @@ public class QuoteConfiguration : IEntityTypeConfiguration<Quote>
             .HasConversion(
                 id => id.Value,
                 value => AuthorId.Create(value));
-
-        builder.Property(q => q.BookId)
-            .HasConversion(
-                id => id!.Value,
-                value => BookId.Create(value));
     }
 }

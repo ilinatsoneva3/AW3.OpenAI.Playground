@@ -1,5 +1,4 @@
 ﻿using AW3.GR.OpenAI.Domain.AuthorAggregate.ValueObjects;
-using AW3.GR.OpenAI.Domain.Books.ValueObjects;
 using AW3.GR.OpenAI.Domain.Common.Models;
 using AW3.GR.OpenAI.Domain.Quotes.ValueObjects;
 
@@ -11,17 +10,14 @@ public class Quote : AggregateRoot<QuoteId, Guid>
 
     public AuthorId AuthorId { get; private set; }
 
-    public BookId? BookId { get; private set; }
-
-    public Quote(string content, AuthorId authorId, BookId? bookId) : base(QuoteId.CreateUnique())
+    public Quote(string content, AuthorId authorId) : base(QuoteId.CreateUnique())
     {
         Content = content;
         AuthorId = authorId;
-        BookId = bookId;
     }
 
-    public static Quote Create(string content, AuthorId authorId, BookId? bookdId)
-        => new(content, authorId, bookdId);
+    public static Quote Create(string content, AuthorId authorId)
+        => new(content, authorId);
 
     private Quote()
     {

@@ -1,7 +1,6 @@
 ﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 using AW3.GR.OpenAI.Application.Common.Interfaces.Services;
 using AW3.GR.OpenAI.Application.Interfaces;
-using AW3.GR.OpenAI.Domain.Common.Enums;
 using AW3.GR.OpenAI.Domain.Common.Errors;
 using AW3.GR.OpenAI.Domain.SearchHistories.Events;
 using ErrorOr;
@@ -35,27 +34,9 @@ internal sealed class OpenAiQueryHandler : IRequestHandler<OpenAiQuery, ErrorOr<
         if (userId is null)
             return Errors.User.UserNotFound;
 
-        var result = string.Empty;
-
-        OpenAiQuestionType.TryFromName(request.Type, out OpenAiQuestionType type);
-
-        if (type is null)
-            return Errors.Quote.InvalidQuestionType;
-
-        switch (request.Type)
-        {
-            case nameof(OpenAiQuestionType.Book):
-                result = await _aiClient.GetMostPopularQuoteBookNameAsync(request.Name);
-                break;
-            case nameof(OpenAiQuestionType.Author):
-                result = await _aiClient.GetMostPopularQuoteByAuthorNameAsync(request.Name);
-                break;
-            default:
-                break;
-        }
+        var result = await _aiClient.GetMostPopularQuoteByAuthorNameAsync(request.Name);
 
         var searchHistory = Domain.SearchHistories.SearchHistory.Create(
-            type,
             request.Name,
             _dateTimeProvider.UtcNow,
             result,

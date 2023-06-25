@@ -7,6 +7,5 @@ public class OpenAiQueryValidator : AbstractValidator<OpenAiQuery>
     public OpenAiQueryValidator()
     {
         RuleFor(x => x.Name).NotEmpty();
-        RuleFor(x => x.Type).NotEmpty();
     }
 }

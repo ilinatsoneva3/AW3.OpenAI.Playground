@@ -1,5 +1,4 @@
 ﻿using AW3.GR.OpenAI.Domain.AuthorAggregate.ValueObjects;
-using AW3.GR.OpenAI.Domain.Books.ValueObjects;
 using AW3.GR.OpenAI.Domain.Common.Models;
 using AW3.GR.OpenAI.Domain.Quotes.ValueObjects;
 
@@ -7,7 +6,6 @@ namespace AW3.GR.OpenAI.Domain.Authors;
 
 public class Author : AggregateRoot<AuthorId, Guid>
 {
-    private readonly List<BookId> _bookIds = new();
     private readonly List<QuoteId> _quoteIds = new();
 
     public string FirstName { get; private set; }
@@ -16,12 +14,7 @@ public class Author : AggregateRoot<AuthorId, Guid>
 
     public string LastName { get; private set; }
 
-    public IReadOnlyList<BookId> BookIds => _bookIds.AsReadOnly();
-
     public IReadOnlyList<QuoteId> QuoteIds => _quoteIds.AsReadOnly();
-
-    public void AddBook(BookId bookId)
-        => _bookIds.Add(bookId);
 
     public void AddQuote(QuoteId quoteId)
         => _quoteIds.Add(quoteId);

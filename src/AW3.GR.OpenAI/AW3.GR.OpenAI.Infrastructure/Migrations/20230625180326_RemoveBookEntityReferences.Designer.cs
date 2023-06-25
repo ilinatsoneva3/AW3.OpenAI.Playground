@@ -4,6 +4,7 @@ using AW3.GR.OpenAI.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AW3.GR.OpenAI.Infrastructure.Migrations
 {
     [DbContext(typeof(GROpenAIDbContext))]
-    partial class GROpenAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230625180326_RemoveBookEntityReferences")]
+    partial class RemoveBookEntityReferences
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

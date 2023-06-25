@@ -1,5 +1,4 @@
-﻿using AW3.GR.OpenAI.Domain.Common.Enums;
-using AW3.GR.OpenAI.Domain.SearchHistories;
+﻿using AW3.GR.OpenAI.Domain.SearchHistories;
 using AW3.GR.OpenAI.Domain.SearchHistories.ValueObjects;
 using AW3.GR.OpenAI.Domain.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore;
@@ -36,10 +35,5 @@ public class SearchHistoryConfiguration : IEntityTypeConfiguration<SearchHistory
             .HasConversion(
                 id => id.Value,
                 value => UserId.Create(value));
-
-        builder.Property(sh => sh.QuestionType)
-            .HasConversion(
-                questionType => questionType.Value,
-                value => OpenAiQuestionType.FromValue(value));
     }
 }
