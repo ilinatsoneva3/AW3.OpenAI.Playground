@@ -6,4 +6,4 @@ public sealed record SearchHistoryResponse(
     SearchHistoryId SearchHistoryId,
     string SearchText,
     string SearchResult,
-    DateTime SearchedDate);
+    DateTime SearchDate);

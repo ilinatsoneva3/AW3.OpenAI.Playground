@@ -28,7 +28,7 @@ public sealed class GetSearchHistoryQueryHandler
     {
         var userId = _userContextService.UserId;
 
-        if (userId == null)
+        if (userId is null)
             return Errors.User.UserNotFound;
 
         var searchHistory = _searchHistoryRepository.GetAllByUserIdAsync(userId);
