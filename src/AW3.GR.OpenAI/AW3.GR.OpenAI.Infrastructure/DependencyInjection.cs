@@ -25,7 +25,7 @@ public static class DependencyInjection
     {
         services
             .ConfigureAuthentication(configuration)
-            .AddPersistence();
+            .AddPersistence(configuration);
 
         services.AddOpenAi(settings =>
         {
@@ -44,11 +44,11 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddPersistence(this IServiceCollection services)
+    private static IServiceCollection AddPersistence(this IServiceCollection services, ConfigurationManager configuration)
     {
         services.AddDbContext<GROpenAIDbContext>(options =>
         {
-            options.UseSqlServer("");
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         });
 
         services.AddScoped<IUserRepository, UserRepository>();
