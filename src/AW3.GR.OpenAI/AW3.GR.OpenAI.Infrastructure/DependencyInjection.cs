@@ -42,6 +42,8 @@ public static class DependencyInjection
         services.AddScoped<PublishDomainEventsInterceptor>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ISearchHistoryRepository, SearchHistoryRepository>();
+        services.AddScoped<IAuthorRepository, AuthorRepository>();
+        services.AddScoped<IQuoteRepository, QuoteRepository>();
 
         return services;
     }

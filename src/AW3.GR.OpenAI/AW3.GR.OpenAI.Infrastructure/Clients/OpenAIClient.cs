@@ -5,7 +5,7 @@ namespace AW3.GR.OpenAI.Infrastructure.Clients;
 
 public class OpenAIClient : IOpenAiClient
 {
-    private const string AUTHOR_NAME_PROMPT = "Provide one the most famous quotes by [AN]";
+    private const string AUTHOR_NAME_PROMPT = "Provide a quote by [AN] in the form of: \"Quote: Author:\"";
     private readonly IOpenAiFactory _openAiFactory;
     private readonly IOpenAi _openAiApi;
 
