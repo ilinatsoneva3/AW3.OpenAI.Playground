@@ -3,6 +3,7 @@ using AW3.GR.OpenAI.Application.Common.Interfaces.Services;
 using AW3.GR.OpenAI.Application.Interfaces;
 using AW3.GR.OpenAI.Domain.Common.Enums;
 using AW3.GR.OpenAI.Domain.Common.Errors;
+using AW3.GR.OpenAI.Domain.SearchHistories.Events;
 using ErrorOr;
 using MediatR;
 
@@ -53,14 +54,16 @@ internal sealed class OpenAiQueryHandler : IRequestHandler<OpenAiQuery, ErrorOr<
                 break;
         }
 
-        var searchHistoryEntryToAdd = Domain.SearchHistories.SearchHistory.Create(
+        var searchHistory = Domain.SearchHistories.SearchHistory.Create(
             type,
             request.Name,
             _dateTimeProvider.UtcNow,
             result,
             userId);
 
-        _searchHistoryRepository.CreateSearchHistoryEntryAsync(searchHistoryEntryToAdd);
+        searchHistory.AddDomainEvent(new SearchHistoryCreated(searchHistory));
+
+        _searchHistoryRepository.CreateSearchHistoryEntryAsync(searchHistory);
 
         return new OpenAiResponse(result);
     }

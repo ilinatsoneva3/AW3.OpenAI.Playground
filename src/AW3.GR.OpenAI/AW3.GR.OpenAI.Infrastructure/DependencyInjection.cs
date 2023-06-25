@@ -6,6 +6,7 @@ using AW3.GR.OpenAI.Application.Interfaces;
 using AW3.GR.OpenAI.Infrastructure.Authentication;
 using AW3.GR.OpenAI.Infrastructure.Clients;
 using AW3.GR.OpenAI.Infrastructure.Persistence;
+using AW3.GR.OpenAI.Infrastructure.Persistence.Interceptors;
 using AW3.GR.OpenAI.Infrastructure.Persistence.Repositories;
 using AW3.GR.OpenAI.Infrastructure.Services;
 using AW3.GR.OpenAI.Infrastructure.Services.Settings;
@@ -25,21 +26,8 @@ public static class DependencyInjection
     {
         services
             .ConfigureAuthentication(configuration)
+            .ConfigureClients(configuration)
             .AddPersistence(configuration);
-
-        services.AddOpenAi(settings =>
-        {
-            settings.ApiKey = configuration["OpenAI:ApiKey"];
-        });
-        services.AddScoped<IOpenAiClient, OpenAIClient>();
-
-        services.Configure<PasswordHashingOptions>(
-            configuration.GetSection(PasswordHashingOptions.TITLE));
-
-        services.AddTransient<IPasswordHasher, PasswordHasher>();
-        services.AddScoped<IUserContextService, UserContextService>();
-        services.AddTransient<IDateTimeProvider, DateTimeProvider>();
-
 
         return services;
     }
@@ -51,6 +39,7 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         });
 
+        services.AddScoped<PublishDomainEventsInterceptor>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ISearchHistoryRepository, SearchHistoryRepository>();
 
@@ -61,6 +50,10 @@ public static class DependencyInjection
         this IServiceCollection services,
         ConfigurationManager configuration)
     {
+        services.Configure<PasswordHashingOptions>(
+            configuration.GetSection(PasswordHashingOptions.TITLE));
+        services.AddTransient<IPasswordHasher, PasswordHasher>();
+
         var jwtSettings = new JwtSettings();
         configuration.Bind(JwtSettings.SectionName, jwtSettings);
         services.AddSingleton(Options.Create(jwtSettings));
@@ -82,6 +75,19 @@ public static class DependencyInjection
         });
 
 
+        return services;
+    }
+
+    private static IServiceCollection ConfigureClients(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        services.AddOpenAi(settings =>
+        {
+            settings.ApiKey = configuration["OpenAI:ApiKey"];
+        });
+        services.AddScoped<IOpenAiClient, OpenAIClient>();
+        services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+
+        services.AddScoped<IUserContextService, UserContextService>();
         return services;
     }
 }
