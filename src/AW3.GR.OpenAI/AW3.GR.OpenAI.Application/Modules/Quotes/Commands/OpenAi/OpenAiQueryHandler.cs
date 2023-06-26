@@ -44,7 +44,7 @@ internal sealed class OpenAiQueryHandler : IRequestHandler<OpenAiQuery, ErrorOr<
 
         searchHistory.AddDomainEvent(new SearchHistoryCreated(searchHistory));
 
-        _searchHistoryRepository.AddAsync(searchHistory);
+        await _searchHistoryRepository.AddAsync(searchHistory, cancellationToken);
 
         return new OpenAiResponse(result);
     }

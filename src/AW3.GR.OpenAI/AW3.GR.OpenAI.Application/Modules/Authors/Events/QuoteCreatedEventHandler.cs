@@ -16,7 +16,7 @@ public class QuoteCreatedEventHandler : INotificationHandler<QuoteCreated>
 
     public async Task Handle(QuoteCreated notification, CancellationToken cancellationToken)
     {
-        var author = await _authorRepository.GetByIdAsync(notification.Quote.AuthorId.Value);
+        var author = await _authorRepository.FirstOrDefaultAsync(a => a.Id.Equals(notification.Quote.AuthorId.Value));
 
         author!.AddQuote((QuoteId)notification.Quote.Id);
 

@@ -33,14 +33,14 @@ public class SearchHistoryCreatedEventHandler : INotificationHandler<SearchHisto
 
         var (quoteText, authorName) = GenerateQuoteAuthorFromResponse(content);
 
-        Author author = await GetAuthorByFullNameAsync(authorName);
+        Author author = await GetAuthorByFullNameAsync(authorName, cancellationToken);
 
         Quote quote = await GetQuoteAsync(quoteText, (AuthorId)author.Id);
 
         author.AddQuote((QuoteId)quote.Id);
 
-        await _authorRepository.AddAuthorAsync(author);
-        await _quoteRepository.AddQuoteAsync(quote);
+        await _authorRepository.AddAuthorAsync(author, cancellationToken);
+        await _quoteRepository.AddQuoteAsync(quote, cancellationToken);
     }
 
     private async Task<Quote> GetQuoteAsync(string text, AuthorId authorId)
@@ -53,13 +53,13 @@ public class SearchHistoryCreatedEventHandler : INotificationHandler<SearchHisto
     }
 
     #region RetrieveAuthor
-    private async Task<Author> GetAuthorByFullNameAsync(string authorName)
+    private async Task<Author> GetAuthorByFullNameAsync(string authorName, CancellationToken cancellationToken)
     {
         var authorNames = GetAuthorNames(authorName);
 
         var author = authorNames.Count == 1
-            ? await _authorRepository.GetAuthorByLastNameAsync(authorNames[LAST_NAME])
-            : await _authorRepository.GetAuthorByFirstAndLastNameAsync(authorNames[FIRST_NAME], authorNames[LAST_NAME]);
+            ? await _authorRepository.FirstOrDefaultAsync(a => a.LastName.Equals(authorNames[LAST_NAME]), cancellationToken)
+            : await _authorRepository.FirstOrDefaultAsync(a => a.FirstName.Equals(authorNames[FIRST_NAME]) && a.LastName.Equals(authorNames[LAST_NAME]), cancellationToken);
 
         author ??= Author.Create(authorNames[FIRST_NAME], authorNames[LAST_NAME], authorNames.GetValueOrDefault(MIDDLE_NAME));
         return author;

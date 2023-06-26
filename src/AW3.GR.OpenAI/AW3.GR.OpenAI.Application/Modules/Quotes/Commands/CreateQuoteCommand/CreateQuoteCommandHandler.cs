@@ -21,7 +21,7 @@ public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, Err
 
     public async Task<ErrorOr<CreateQuoteResponse>> Handle(CreateQuoteCommand request, CancellationToken cancellationToken)
     {
-        var author = await _authorRepository.GetByIdAsync(request.AuthorId);
+        var author = await _authorRepository.FirstOrDefaultAsync(a => a.Id.Equals(request.AuthorId), cancellationToken);
 
         if (author is null)
             return Errors.Author.AuthorNotFound;
@@ -30,7 +30,7 @@ public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, Err
 
         newQuote.AddDomainEvent(new QuoteCreated(newQuote));
 
-        await _quoteRepository.AddQuoteAsync(newQuote);
+        await _quoteRepository.AddQuoteAsync(newQuote, cancellationToken);
         return new CreateQuoteResponse(newQuote.Id.Value, newQuote.Content, author.GetFullName());
     }
 }

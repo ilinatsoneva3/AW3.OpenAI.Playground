@@ -5,7 +5,7 @@ namespace AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 
 public interface IQuoteRepository
 {
-    Task<Quote?> GetByAuthorAndContentAsync(string partialMatch, AuthorId authorId);
+    Task<Quote?> GetByAuthorAndContentAsync(string partialMatch, AuthorId authorId, CancellationToken cancellationToken = default);
 
-    Task AddQuoteAsync(Quote quote);
+    Task AddQuoteAsync(Quote quote, CancellationToken cancellationToken = default);
 }

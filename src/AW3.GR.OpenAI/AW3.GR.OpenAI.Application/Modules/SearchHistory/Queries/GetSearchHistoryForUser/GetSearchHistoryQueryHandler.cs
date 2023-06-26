@@ -31,7 +31,7 @@ public sealed class GetSearchHistoryQueryHandler
         if (userId is null)
             return Errors.User.UserNotFound;
 
-        var searchHistory = _searchHistoryRepository.GetAllByUserIdAsync(userId);
+        var searchHistory = await _searchHistoryRepository.GetAllByUserIdAsync(userId);
 
         return searchHistory
             .Select(_mapper.Map<SearchHistoryResponse>)

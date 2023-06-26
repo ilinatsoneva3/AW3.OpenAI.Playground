@@ -1,16 +1,15 @@
-﻿using AW3.GR.OpenAI.Domain.Authors;
+﻿using System.Linq.Expressions;
+using AW3.GR.OpenAI.Domain.Authors;
 
 namespace AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 
 public interface IAuthorRepository
 {
-    Task<Author?> GetAuthorByFirstAndLastNameAsync(string firstName, string lastName);
+    Task<Author?> FirstOrDefaultAsync(Expression<Func<Author, bool>>? predicate = null, CancellationToken cancellationToken = default);
 
-    Task<Author?> GetAuthorByLastNameAsync(string lastName);
+    Task AddAuthorAsync(Author author, CancellationToken cancellationToken = default);
 
-    Task AddAuthorAsync(Author author);
+    Task<IEnumerable<Author>> GetAllAsync(CancellationToken cancellationToken = default);
 
-    Task<Author?> GetByIdAsync(Guid id);
-
-    Task SaveChangesAsync();
+    Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

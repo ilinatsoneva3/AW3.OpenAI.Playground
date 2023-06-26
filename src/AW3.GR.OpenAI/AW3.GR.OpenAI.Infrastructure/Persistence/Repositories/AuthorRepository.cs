@@ -1,4 +1,5 @@
-﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
+﻿using System.Linq.Expressions;
+using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 using AW3.GR.OpenAI.Domain.Authors;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,23 +14,18 @@ public class AuthorRepository : IAuthorRepository
         _dbContext = dbContext;
     }
 
-    public async Task<Author?> GetAuthorByFirstAndLastNameAsync(string firstName, string lastName)
-        => await _dbContext.Authors
-                .FirstOrDefaultAsync(a => a.FirstName.Equals(firstName) && a.LastName.Equals(lastName));
-
-    public async Task<Author?> GetAuthorByLastNameAsync(string lastName)
-        => await _dbContext.Authors
-                .FirstOrDefaultAsync(a => a.LastName.Equals(lastName));
-
-    public async Task AddAuthorAsync(Author author)
+    public async Task AddAuthorAsync(Author author, CancellationToken cancellationToken = default)
     {
-        await _dbContext.Authors.AddAsync(author);
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.Authors.AddAsync(author, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<Author?> GetByIdAsync(Guid id)
-        => await _dbContext.Authors.FirstOrDefaultAsync(a => a.Id.Value == id);
+    public async Task SaveChangesAsync(CancellationToken cancellationToken)
+        => await _dbContext.SaveChangesAsync(cancellationToken);
 
-    public async Task SaveChangesAsync()
-        => await _dbContext.SaveChangesAsync();
+    public async Task<IEnumerable<Author>> GetAllAsync(CancellationToken cancellationToken = default)
+        => await _dbContext.Authors.ToListAsync(cancellationToken);
+
+    public async Task<Author?> FirstOrDefaultAsync(Expression<Func<Author, bool>>? predicate = null, CancellationToken cancellationToken = default)
+        => await _dbContext.Authors.FirstOrDefaultAsync(predicate, cancellationToken);
 }

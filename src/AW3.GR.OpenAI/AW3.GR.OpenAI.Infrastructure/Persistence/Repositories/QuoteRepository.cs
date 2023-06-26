@@ -14,14 +14,15 @@ public class QuoteRepository : IQuoteRepository
         _dbContext = dbContext;
     }
 
-    public async Task AddQuoteAsync(Quote quote)
+    public async Task AddQuoteAsync(Quote quote, CancellationToken cancellationToken = default)
     {
-        await _dbContext.Quotes.AddAsync(quote);
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.Quotes.AddAsync(quote, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<Quote?> GetByAuthorAndContentAsync(string partialMatch, AuthorId authorId)
+    public async Task<Quote?> GetByAuthorAndContentAsync(string partialMatch, AuthorId authorId, CancellationToken cancellationToken = default)
         => await _dbContext.Quotes
                 .FirstOrDefaultAsync(q => q.Content.Equals(partialMatch)
-                                          && q.AuthorId.Equals(authorId));
+                                          && q.AuthorId.Equals(authorId),
+                                     cancellationToken);
 }

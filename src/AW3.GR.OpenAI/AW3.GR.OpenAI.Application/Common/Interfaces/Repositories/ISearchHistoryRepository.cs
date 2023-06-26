@@ -5,7 +5,7 @@ namespace AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 
 public interface ISearchHistoryRepository
 {
-    void AddAsync(SearchHistory entity);
+    Task AddAsync(SearchHistory entity, CancellationToken cancellationToken = default);
 
-    IEnumerable<SearchHistory> GetAllByUserIdAsync(UserId userId);
+    Task<IEnumerable<SearchHistory>> GetAllByUserIdAsync(UserId userId, CancellationToken cancellationToken = default);
 }
