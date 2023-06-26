@@ -1,4 +1,5 @@
 ﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
+using AW3.GR.OpenAI.Domain.AuthorAggregate.ValueObjects;
 using AW3.GR.OpenAI.Domain.Quotes.Events;
 using AW3.GR.OpenAI.Domain.Quotes.ValueObjects;
 using MediatR;
@@ -16,7 +17,7 @@ public class QuoteCreatedEventHandler : INotificationHandler<QuoteCreated>
 
     public async Task Handle(QuoteCreated notification, CancellationToken cancellationToken)
     {
-        var author = await _authorRepository.FirstOrDefaultAsync(a => a.Id.Equals(notification.Quote.AuthorId.Value));
+        var author = await _authorRepository.FirstOrDefaultAsync(a => a.Id == AuthorId.Create(notification.Quote.AuthorId.Value));
 
         author!.AddQuote((QuoteId)notification.Quote.Id);
 

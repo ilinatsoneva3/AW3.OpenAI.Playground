@@ -15,9 +15,7 @@ public class AuthenticationController : ApiController
     {
         var result = await Sender.Send(request);
 
-        return result.Match(
-            Ok,
-            Problem);
+        return result.Match(Ok, Problem);
     }
 
     [HttpPost("login")]
@@ -28,8 +26,6 @@ public class AuthenticationController : ApiController
         if (result.IsError && result.FirstError == Errors.Authentication.InvalidCredentials)
             return Problem(statusCode: StatusCodes.Status401Unauthorized, title: result.FirstError.Description);
 
-        return result.Match(
-            Ok,
-            Problem);
+        return result.Match(Ok, Problem);
     }
 }

@@ -21,7 +21,8 @@ public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, Err
 
     public async Task<ErrorOr<CreateQuoteResponse>> Handle(CreateQuoteCommand request, CancellationToken cancellationToken)
     {
-        var author = await _authorRepository.FirstOrDefaultAsync(a => a.Id.Equals(request.AuthorId), cancellationToken);
+        var authorId = AuthorId.Create(request.AuthorId);
+        var author = await _authorRepository.FirstOrDefaultAsync(a => a.Id == authorId, cancellationToken);
 
         if (author is null)
             return Errors.Author.AuthorNotFound;
