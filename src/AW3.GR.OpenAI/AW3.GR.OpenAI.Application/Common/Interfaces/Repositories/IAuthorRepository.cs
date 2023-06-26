@@ -9,4 +9,8 @@ public interface IAuthorRepository
     Task<Author?> GetAuthorByLastNameAsync(string lastName);
 
     Task AddAuthorAsync(Author author);
+
+    Task<Author?> GetByIdAsync(Guid id);
+
+    Task SaveChangesAsync();
 }

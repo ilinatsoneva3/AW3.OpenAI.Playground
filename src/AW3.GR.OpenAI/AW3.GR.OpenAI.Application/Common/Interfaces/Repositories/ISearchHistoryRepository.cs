@@ -5,7 +5,7 @@ namespace AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 
 public interface ISearchHistoryRepository
 {
-    void CreateSearchHistoryEntryAsync(SearchHistory entity);
+    void AddAsync(SearchHistory entity);
 
     IEnumerable<SearchHistory> GetAllByUserIdAsync(UserId userId);
 }

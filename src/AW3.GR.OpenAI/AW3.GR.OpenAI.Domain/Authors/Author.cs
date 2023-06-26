@@ -19,6 +19,11 @@ public class Author : AggregateRoot<AuthorId, Guid>
     public void AddQuote(QuoteId quoteId)
         => _quoteIds.Add(quoteId);
 
+    public string GetFullName()
+        => string.IsNullOrWhiteSpace(MiddleName)
+            ? $"{FirstName} {LastName}"
+            : $"{FirstName} {MiddleName} {LastName}";
+
     public static Author Create(string firstName, string lastName, string? middleName)
         => new(AuthorId.CreateUnique(), firstName, lastName, middleName);
 

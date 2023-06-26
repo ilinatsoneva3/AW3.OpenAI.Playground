@@ -26,4 +26,10 @@ public class AuthorRepository : IAuthorRepository
         await _dbContext.Authors.AddAsync(author);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<Author?> GetByIdAsync(Guid id)
+        => await _dbContext.Authors.FirstOrDefaultAsync(a => a.Id.Value == id);
+
+    public async Task SaveChangesAsync()
+        => await _dbContext.SaveChangesAsync();
 }

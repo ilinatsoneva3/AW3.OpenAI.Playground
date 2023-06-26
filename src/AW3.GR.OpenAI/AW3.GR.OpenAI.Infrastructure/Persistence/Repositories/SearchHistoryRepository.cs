@@ -13,7 +13,7 @@ public class SearchHistoryRepository : ISearchHistoryRepository
         _dbContext = dbContext;
     }
 
-    public void CreateSearchHistoryEntryAsync(SearchHistory entity)
+    public void AddAsync(SearchHistory entity)
     {
         _dbContext.Add(entity);
         _dbContext.SaveChanges();
