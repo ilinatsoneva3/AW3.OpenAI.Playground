@@ -24,7 +24,7 @@ public class AuthorsController : ApiController
     }
 
     [HttpPost("{authorId}/quotes")]
-    public async Task<IActionResult> CreateQuoteAsync([FromRoute] Guid authorId, [FromBody] string request)
+    public async Task<IActionResult> CreateQuoteAsync([FromRoute] string authorId, [FromBody] CreateQuoteDto request)
     {
         var result = await Sender.Send(new CreateQuoteCommand(request, authorId));
 

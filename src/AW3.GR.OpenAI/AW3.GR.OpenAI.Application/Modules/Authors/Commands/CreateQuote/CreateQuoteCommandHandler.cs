@@ -22,13 +22,12 @@ public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, Err
 
     public async Task<ErrorOr<AuthorDTO>> Handle(CreateQuoteCommand request, CancellationToken cancellationToken)
     {
-        var authorId = AuthorId.Create(request.AuthorId);
-        var author = await _authorRepository.FirstOrDefaultAsync(a => a.Id == authorId, cancellationToken);
+        var author = await _authorRepository.FirstOrDefaultAsync(a => a.Id == AuthorId.Create(request.AuthorId), cancellationToken);
 
         if (author is null)
             return Errors.Author.AuthorNotFound;
 
-        var newQuote = Quote.Create(request.Content);
+        var newQuote = Quote.Create(request.Quote.Content);
         author.AddQuote(newQuote);
 
         await _authorRepository.SaveChangesAsync(cancellationToken);

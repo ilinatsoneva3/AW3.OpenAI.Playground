@@ -4,5 +4,5 @@ using MediatR;
 
 namespace AW3.GR.OpenAI.Application.Modules.Authors.Commands.CreateQuote;
 
-public sealed record CreateQuoteCommand(string Content, Guid AuthorId)
+public sealed record CreateQuoteCommand(CreateQuoteDto Quote, string AuthorId)
     : IRequest<ErrorOr<AuthorDTO>>;
