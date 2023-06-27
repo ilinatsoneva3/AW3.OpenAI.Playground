@@ -2,7 +2,7 @@
 using ErrorOr;
 using MediatR;
 
-namespace AW3.GR.OpenAI.Application.Modules.Quotes.Commands.CreateQuoteCommand;
+namespace AW3.GR.OpenAI.Application.Modules.Authors.Commands.CreateQuote;
 
 public sealed record CreateQuoteCommand(string Content, Guid AuthorId)
     : IRequest<ErrorOr<AuthorDTO>>;

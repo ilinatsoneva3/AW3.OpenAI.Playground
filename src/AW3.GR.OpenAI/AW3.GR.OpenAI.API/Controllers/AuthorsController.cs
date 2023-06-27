@@ -1,6 +1,6 @@
-﻿using AW3.GR.OpenAI.Application.Modules.Authors.Queries.GetAuthors;
+﻿using AW3.GR.OpenAI.Application.Modules.Authors.Commands.CreateQuote;
+using AW3.GR.OpenAI.Application.Modules.Authors.Queries.GetAuthors;
 using AW3.GR.OpenAI.Application.Modules.Quotes.Commands.AskOpenAi;
-using AW3.GR.OpenAI.Application.Modules.Quotes.Commands.CreateQuoteCommand;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AW3.GR.OpenAI.API.Controllers;

@@ -7,7 +7,7 @@ using ErrorOr;
 using MapsterMapper;
 using MediatR;
 
-namespace AW3.GR.OpenAI.Application.Modules.Quotes.Commands.CreateQuoteCommand;
+namespace AW3.GR.OpenAI.Application.Modules.Authors.Commands.CreateQuote;
 
 public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, ErrorOr<AuthorDTO>>
 {
