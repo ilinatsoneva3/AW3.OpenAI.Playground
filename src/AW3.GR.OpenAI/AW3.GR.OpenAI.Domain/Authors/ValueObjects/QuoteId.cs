@@ -2,7 +2,7 @@
 
 namespace AW3.GR.OpenAI.Domain.Quotes.ValueObjects;
 
-public class QuoteId : AggregateRootId<Guid>
+public sealed class QuoteId : EntityId<Guid>
 {
     private QuoteId(Guid value) : base(value)
     {

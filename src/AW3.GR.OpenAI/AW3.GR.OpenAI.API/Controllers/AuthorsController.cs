@@ -1,4 +1,6 @@
 ﻿using AW3.GR.OpenAI.Application.Modules.Authors.Queries.GetAuthors;
+using AW3.GR.OpenAI.Application.Modules.Quotes.Commands.AskOpenAi;
+using AW3.GR.OpenAI.Application.Modules.Quotes.Commands.CreateQuoteCommand;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AW3.GR.OpenAI.API.Controllers;
@@ -11,5 +13,21 @@ public class AuthorsController : ApiController
         var result = await Sender.Send(new GetAuthorsQuery());
 
         return result.Match<IActionResult>(Ok, BadRequest);
+    }
+
+    [HttpPost("open-ai")]
+    public async Task<IActionResult> AskOpenAiAsync([FromBody] OpenAiQuery request)
+    {
+        var result = await Sender.Send(request);
+
+        return result.Match(Ok, Problem);
+    }
+
+    [HttpPost("{authorId}/quotes")]
+    public async Task<IActionResult> CreateQuoteAsync([FromRoute] Guid authorId, [FromBody] string request)
+    {
+        var result = await Sender.Send(new CreateQuoteCommand(request, authorId));
+
+        return result.Match(Ok, Problem);
     }
 }

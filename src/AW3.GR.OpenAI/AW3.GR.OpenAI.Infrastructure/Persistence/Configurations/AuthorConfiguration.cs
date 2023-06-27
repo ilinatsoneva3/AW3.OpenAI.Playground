@@ -1,5 +1,6 @@
 ﻿using AW3.GR.OpenAI.Domain.AuthorAggregate.ValueObjects;
 using AW3.GR.OpenAI.Domain.Authors;
+using AW3.GR.OpenAI.Domain.Quotes.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,8 +23,8 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
         builder.Property(a => a.Id)
             .ValueGeneratedNever()
             .HasConversion(
-                id => id.Value,
-                value => AuthorId.Create(value));
+                 id => id.Value,
+                 value => AuthorId.Create(value));
 
         builder.Property(a => a.FirstName)
             .HasMaxLength(50)
@@ -40,21 +41,26 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
 
     private void ConfigureAuthorQuotes(EntityTypeBuilder<Author> builder)
     {
-        builder.OwnsMany(a => a.QuoteIds, q =>
+        builder.OwnsMany(a => a.Quotes, q =>
         {
-            q.ToTable("AuthorQuoteIds");
+            q.ToTable("Quotes");
 
             q.WithOwner().HasForeignKey("AuthorId");
 
-            q.HasKey("Id");
+            q.HasKey("Id", "AuthorId");
 
-            q.Property(q => q.Value)
+            q.Property(q => q.Id)
                 .HasColumnName("QuoteId")
-                .ValueGeneratedNever();
+                .ValueGeneratedNever()
+                .HasConversion(
+                     id => id.Value,
+                     value => QuoteId.Create(value));
+
+            q.Property(q => q.Content)
+                .IsRequired();
         });
 
-        builder.Metadata
-            .FindNavigation(nameof(Author.QuoteIds))!
+        builder.Metadata.FindNavigation(nameof(Author.Quotes))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

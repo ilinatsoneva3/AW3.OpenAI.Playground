@@ -1,12 +1,12 @@
 ﻿using AW3.GR.OpenAI.Domain.AuthorAggregate.ValueObjects;
 using AW3.GR.OpenAI.Domain.Common.Models;
-using AW3.GR.OpenAI.Domain.Quotes.ValueObjects;
+using AW3.GR.OpenAI.Domain.Quotes;
 
 namespace AW3.GR.OpenAI.Domain.Authors;
 
 public class Author : AggregateRoot<AuthorId, Guid>
 {
-    private readonly List<QuoteId> _quoteIds = new();
+    private readonly List<Quote> _quotes = new();
 
     public string FirstName { get; private set; }
 
@@ -14,10 +14,10 @@ public class Author : AggregateRoot<AuthorId, Guid>
 
     public string LastName { get; private set; }
 
-    public IReadOnlyList<QuoteId> QuoteIds => _quoteIds.AsReadOnly();
+    public IReadOnlyList<Quote> Quotes => _quotes.AsReadOnly();
 
-    public void AddQuote(QuoteId quoteId)
-        => _quoteIds.Add(quoteId);
+    public void AddQuote(Quote quote)
+        => _quotes.Add(quote);
 
     public string GetFullName()
         => string.IsNullOrWhiteSpace(MiddleName)

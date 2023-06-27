@@ -1,0 +1,38 @@
+﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
+using AW3.GR.OpenAI.Application.Modules.Authors.DTOs;
+using AW3.GR.OpenAI.Domain.AuthorAggregate.ValueObjects;
+using AW3.GR.OpenAI.Domain.Common.Errors;
+using AW3.GR.OpenAI.Domain.Quotes;
+using ErrorOr;
+using MapsterMapper;
+using MediatR;
+
+namespace AW3.GR.OpenAI.Application.Modules.Quotes.Commands.CreateQuoteCommand;
+
+public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, ErrorOr<AuthorDTO>>
+{
+    private readonly IAuthorRepository _authorRepository;
+    private readonly IMapper _mapper;
+
+    public CreateQuoteCommandHandler(IAuthorRepository authorRepository, IMapper mapper)
+    {
+        _authorRepository = authorRepository;
+        _mapper = mapper;
+    }
+
+    public async Task<ErrorOr<AuthorDTO>> Handle(CreateQuoteCommand request, CancellationToken cancellationToken)
+    {
+        var authorId = AuthorId.Create(request.AuthorId);
+        var author = await _authorRepository.FirstOrDefaultAsync(a => a.Id == authorId, cancellationToken);
+
+        if (author is null)
+            return Errors.Author.AuthorNotFound;
+
+        var newQuote = Quote.Create(request.Content);
+        author.AddQuote(newQuote);
+
+        await _authorRepository.SaveChangesAsync(cancellationToken);
+
+        return _mapper.Map<AuthorDTO>(author);
+    }
+}

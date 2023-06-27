@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AW3.GR.OpenAI.Infrastructure.Migrations
 {
     [DbContext(typeof(GROpenAIDbContext))]
-    [Migration("20230625180326_RemoveBookEntityReferences")]
-    partial class RemoveBookEntityReferences
+    [Migration("20230627020717_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,23 +47,6 @@ namespace AW3.GR.OpenAI.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Authors", (string)null);
-                });
-
-            modelBuilder.Entity("AW3.GR.OpenAI.Domain.Quotes.Quote", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Quotes", (string)null);
                 });
 
             modelBuilder.Entity("AW3.GR.OpenAI.Domain.SearchHistories.SearchHistory", b =>
@@ -117,32 +100,30 @@ namespace AW3.GR.OpenAI.Infrastructure.Migrations
 
             modelBuilder.Entity("AW3.GR.OpenAI.Domain.Authors.Author", b =>
                 {
-                    b.OwnsMany("AW3.GR.OpenAI.Domain.Quotes.ValueObjects.QuoteId", "QuoteIds", b1 =>
+                    b.OwnsMany("AW3.GR.OpenAI.Domain.Quotes.Quote", "Quotes", b1 =>
                         {
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
-
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("QuoteId");
 
                             b1.Property<Guid>("AuthorId")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.Property<Guid>("Value")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("QuoteId");
+                            b1.Property<string>("Content")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
 
-                            b1.HasKey("Id");
+                            b1.HasKey("Id", "AuthorId");
 
                             b1.HasIndex("AuthorId");
 
-                            b1.ToTable("AuthorQuoteIds", (string)null);
+                            b1.ToTable("Quotes", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("AuthorId");
                         });
 
-                    b.Navigation("QuoteIds");
+                    b.Navigation("Quotes");
                 });
 #pragma warning restore 612, 618
         }

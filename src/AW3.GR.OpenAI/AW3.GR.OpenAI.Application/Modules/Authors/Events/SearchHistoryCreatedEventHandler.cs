@@ -1,8 +1,6 @@
 ﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
-using AW3.GR.OpenAI.Domain.AuthorAggregate.ValueObjects;
 using AW3.GR.OpenAI.Domain.Authors;
 using AW3.GR.OpenAI.Domain.Quotes;
-using AW3.GR.OpenAI.Domain.Quotes.ValueObjects;
 using AW3.GR.OpenAI.Domain.SearchHistories.Events;
 using MediatR;
 
@@ -15,14 +13,10 @@ public class SearchHistoryCreatedEventHandler : INotificationHandler<SearchHisto
     private const string MIDDLE_NAME = "MiddleName";
 
     private readonly IAuthorRepository _authorRepository;
-    private readonly IQuoteRepository _quoteRepository;
 
-    public SearchHistoryCreatedEventHandler(
-        IAuthorRepository authorRepository,
-        IQuoteRepository quoteRepository)
+    public SearchHistoryCreatedEventHandler(IAuthorRepository authorRepository)
     {
-        _authorRepository = authorRepository;
-        _quoteRepository = quoteRepository;
+        _authorRepository = authorRepository ?? throw new ArgumentNullException(nameof(authorRepository));
     }
 
     public async Task Handle(SearchHistoryCreated notification, CancellationToken cancellationToken)
@@ -33,27 +27,26 @@ public class SearchHistoryCreatedEventHandler : INotificationHandler<SearchHisto
 
         var (quoteText, authorName) = GenerateQuoteAuthorFromResponse(content);
 
-        Author author = await GetAuthorByFullNameAsync(authorName, cancellationToken);
-
-        Quote quote = await GetQuoteAsync(quoteText, (AuthorId)author.Id);
-
-        author.AddQuote((QuoteId)quote.Id);
+        Author author = await GetAuthor(authorName, quoteText, cancellationToken);
 
         await _authorRepository.AddAuthorAsync(author, cancellationToken);
-        await _quoteRepository.AddQuoteAsync(quote, cancellationToken);
-    }
-
-    private async Task<Quote> GetQuoteAsync(string text, AuthorId authorId)
-    {
-        var quote = await _quoteRepository.GetByAuthorAndContentAsync(text[..20], authorId);
-
-        quote ??= Quote.Create(text, authorId);
-
-        return quote;
     }
 
     #region RetrieveAuthor
-    private async Task<Author> GetAuthorByFullNameAsync(string authorName, CancellationToken cancellationToken)
+    private async Task<Author> GetAuthor(string authorName, string quoteText, CancellationToken cancellationToken)
+    {
+        var author = await GetAuthorByNameAsync(authorName, cancellationToken);
+        var existingQuote = author.Quotes.FirstOrDefault(q => q.Content.StartsWith(quoteText[..20]));
+
+        if (existingQuote is null)
+        {
+            author.AddQuote(Quote.Create(quoteText));
+        }
+
+        return author;
+    }
+
+    private async Task<Author> GetAuthorByNameAsync(string authorName, CancellationToken cancellationToken)
     {
         var authorNames = GetAuthorNames(authorName);
 
@@ -62,10 +55,11 @@ public class SearchHistoryCreatedEventHandler : INotificationHandler<SearchHisto
             : await _authorRepository.FirstOrDefaultAsync(a => a.FirstName.Equals(authorNames[FIRST_NAME]) && a.LastName.Equals(authorNames[LAST_NAME]), cancellationToken);
 
         author ??= Author.Create(authorNames[FIRST_NAME], authorNames[LAST_NAME], authorNames.GetValueOrDefault(MIDDLE_NAME));
+
         return author;
     }
 
-    private Dictionary<string, string> GetAuthorNames(string authorName)
+    private static Dictionary<string, string> GetAuthorNames(string authorName)
     {
         var namesList = authorName.Split(" ");
 

@@ -1,6 +1,5 @@
 ﻿using AW3.GR.OpenAI.Domain.Authors;
 using AW3.GR.OpenAI.Domain.Common.Models;
-using AW3.GR.OpenAI.Domain.Quotes;
 using AW3.GR.OpenAI.Domain.SearchHistories;
 using AW3.GR.OpenAI.Domain.Users;
 using AW3.GR.OpenAI.Infrastructure.Persistence.Interceptors;
@@ -20,8 +19,6 @@ public class GROpenAIDbContext : DbContext
     }
 
     public DbSet<Author> Authors { get; set; } = null!;
-
-    public DbSet<Quote> Quotes { get; set; } = null!;
 
     public DbSet<SearchHistory> SearchHistories { get; set; } = null!;
 

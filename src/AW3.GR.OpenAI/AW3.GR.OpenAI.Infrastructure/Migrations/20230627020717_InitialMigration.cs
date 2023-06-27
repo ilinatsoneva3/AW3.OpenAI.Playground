@@ -30,7 +30,6 @@ namespace AW3.GR.OpenAI.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    QuestionType = table.Column<int>(type: "int", nullable: false),
                     SearchText = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SearchDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SearchResult = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -56,39 +55,18 @@ namespace AW3.GR.OpenAI.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuthorBookIds",
+                name: "Quotes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    QuoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthorBookIds", x => x.Id);
+                    table.PrimaryKey("PK_Quotes", x => new { x.QuoteId, x.AuthorId });
                     table.ForeignKey(
-                        name: "FK_AuthorBookIds_Authors_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "Authors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AuthorQuoteIds",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    QuoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuthorQuoteIds", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AuthorQuoteIds_Authors_AuthorId",
+                        name: "FK_Quotes_Authors_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "Id",
@@ -96,13 +74,8 @@ namespace AW3.GR.OpenAI.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuthorBookIds_AuthorId",
-                table: "AuthorBookIds",
-                column: "AuthorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AuthorQuoteIds_AuthorId",
-                table: "AuthorQuoteIds",
+                name: "IX_Quotes_AuthorId",
+                table: "Quotes",
                 column: "AuthorId");
         }
 
@@ -110,10 +83,7 @@ namespace AW3.GR.OpenAI.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AuthorBookIds");
-
-            migrationBuilder.DropTable(
-                name: "AuthorQuoteIds");
+                name: "Quotes");
 
             migrationBuilder.DropTable(
                 name: "SearchHistories");

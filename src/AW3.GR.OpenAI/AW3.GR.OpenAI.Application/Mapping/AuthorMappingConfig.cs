@@ -1,4 +1,4 @@
-﻿using AW3.GR.OpenAI.Application.Modules.Authors.Queries.GetAuthors;
+﻿using AW3.GR.OpenAI.Application.Modules.Authors.DTOs;
 using AW3.GR.OpenAI.Domain.Authors;
 using Mapster;
 
@@ -8,7 +8,7 @@ public class AuthorMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<Author, GetAuthorsResponse>()
+        config.NewConfig<Author, AuthorDTO>()
             .Map(dest => dest.FullName, src => src.GetFullName());
     }
 }
