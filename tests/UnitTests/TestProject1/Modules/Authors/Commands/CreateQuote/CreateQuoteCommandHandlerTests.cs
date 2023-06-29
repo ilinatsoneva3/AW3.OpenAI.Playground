@@ -43,7 +43,7 @@ public class CreateQuoteCommandHandlerTests
     }
 
     [Fact]
-    public async Task CreateQuote_AuthorNotFoudn()
+    public async Task CreateQuote_AuthorNotFound()
     {
         var command = CreateQuoteCommandUtils.CreateQuoteInvalidAuthorId();
 
