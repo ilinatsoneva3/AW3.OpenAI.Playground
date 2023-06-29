@@ -24,8 +24,8 @@ public class Author : AggregateRoot<AuthorId, Guid>
             ? $"{FirstName} {LastName}"
             : $"{FirstName} {MiddleName} {LastName}";
 
-    public static Author Create(string firstName, string lastName, string? middleName)
-        => new(AuthorId.CreateUnique(), firstName, lastName, middleName);
+    public static Author Create(string firstName, string lastName, string? middleName, string? authorId = null)
+        => new(string.IsNullOrEmpty(authorId) ? AuthorId.CreateUnique() : AuthorId.Create(authorId), firstName, lastName, middleName);
 
     private Author(AuthorId authorId, string firstName, string lastName, string? middleName) : base(authorId)
     {

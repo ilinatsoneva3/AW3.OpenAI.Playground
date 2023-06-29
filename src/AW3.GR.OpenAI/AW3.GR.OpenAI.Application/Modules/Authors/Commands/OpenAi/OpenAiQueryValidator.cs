@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace AW3.GR.OpenAI.Application.Modules.Quotes.Commands.AskOpenAi;
+namespace AW3.GR.OpenAI.Application.Modules.Quotes.Commands.AskOpenAI;
 
-public class OpenAiQueryValidator : AbstractValidator<OpenAiQuery>
+public class OpenAIQueryValidator : AbstractValidator<OpenAIQuery>
 {
-    public OpenAiQueryValidator()
+    public OpenAIQueryValidator()
     {
         RuleFor(x => x.Name).NotEmpty();
     }

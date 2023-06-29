@@ -6,16 +6,16 @@ using AW3.GR.OpenAI.Domain.SearchHistories.Events;
 using ErrorOr;
 using MediatR;
 
-namespace AW3.GR.OpenAI.Application.Modules.Quotes.Commands.AskOpenAi;
+namespace AW3.GR.OpenAI.Application.Modules.Quotes.Commands.AskOpenAI;
 
-internal sealed class OpenAiQueryHandler : IRequestHandler<OpenAiQuery, ErrorOr<OpenAiResponse>>
+internal sealed class OpenAIQueryHandler : IRequestHandler<OpenAIQuery, ErrorOr<OpenAIResponse>>
 {
     private readonly ISearchHistoryRepository _searchHistoryRepository;
     private readonly IOpenAiClient _aiClient;
     private readonly IDateTimeProvider _dateTimeProvider;
     private readonly IUserContextService _userContextService;
 
-    public OpenAiQueryHandler(
+    public OpenAIQueryHandler(
         ISearchHistoryRepository searchHistoryRepository,
         IOpenAiClient aiClient,
         IDateTimeProvider dateTimeProvider,
@@ -27,7 +27,7 @@ internal sealed class OpenAiQueryHandler : IRequestHandler<OpenAiQuery, ErrorOr<
         _userContextService = userContextService;
     }
 
-    public async Task<ErrorOr<OpenAiResponse>> Handle(OpenAiQuery request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<OpenAIResponse>> Handle(OpenAIQuery request, CancellationToken cancellationToken)
     {
         var userId = _userContextService.UserId;
 
@@ -46,6 +46,6 @@ internal sealed class OpenAiQueryHandler : IRequestHandler<OpenAiQuery, ErrorOr<
 
         await _searchHistoryRepository.AddAsync(searchHistory, cancellationToken);
 
-        return new OpenAiResponse(result);
+        return new OpenAIResponse(result);
     }
 }
