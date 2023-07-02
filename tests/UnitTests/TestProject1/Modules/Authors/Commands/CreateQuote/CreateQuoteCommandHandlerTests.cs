@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 using AW3.GR.OpenAI.Application.Modules.Authors.Commands.CreateQuote;
-using AW3.GR.OpenAI.Application.UnitTests.Modules.Authors.Commands.TestUtils;
+using AW3.GR.OpenAI.Application.UnitTests.Modules.Authors.Commands.CreateQuote.TestUtils;
 using AW3.GR.OpenAI.Application.UnitTests.Modules.TestUtils.Extensions;
 using AW3.GR.OpenAI.Domain.Authors;
 using FluentAssertions;

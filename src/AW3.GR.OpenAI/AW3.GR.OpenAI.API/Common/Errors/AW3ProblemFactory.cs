@@ -92,9 +92,7 @@ public class AW3ProblemFactory : ProblemDetailsFactory
             problemDetails.Extensions["traceId"] = traceId;
         }
 
-        var errors = httpContext?.Items[HttpContextConstants.Errors] as List<Error>;
-
-        if (errors != null)
+        if (httpContext?.Items[HttpContextConstants.Errors] is List<Error> errors)
         {
             problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code));
         }
