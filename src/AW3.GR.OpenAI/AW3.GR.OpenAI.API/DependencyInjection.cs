@@ -60,6 +60,8 @@ public static class DependencyInjection
                     new List<string>()
                 }
             });
+
+            c.EnableAnnotations();
         });
 
         return services;

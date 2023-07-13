@@ -1,8 +1,10 @@
-﻿using AW3.GR.OpenAI.Application.Modules.Authentication.Commands.Register;
+﻿using System.Net;
+using AW3.GR.OpenAI.Application.Modules.Authentication.Commands.Register;
 using AW3.GR.OpenAI.Application.Modules.Authentication.Queries.Login;
 using AW3.GR.OpenAI.Domain.Common.Errors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace AW3.GR.OpenAI.API.Controllers;
 
@@ -11,6 +13,8 @@ namespace AW3.GR.OpenAI.API.Controllers;
 public class AuthenticationController : ApiController
 {
     [HttpPost("register")]
+    [SwaggerOperation("Registers a user and retrieves an access token")]
+    [SwaggerResponse((int)HttpStatusCode.BadRequest, "Duplicate Email")]
     public async Task<IActionResult> RegisterAsync(RegisterCommand request)
     {
         var result = await Sender.Send(request);
@@ -19,6 +23,8 @@ public class AuthenticationController : ApiController
     }
 
     [HttpPost("login")]
+    [SwaggerOperation("Logs in anuser and retrieves an access token")]
+    [SwaggerResponse((int)HttpStatusCode.BadRequest, "Wrong credentials")]
     public async Task<IActionResult> Login(LoginCommand request)
     {
         var result = await Sender.Send(request);
