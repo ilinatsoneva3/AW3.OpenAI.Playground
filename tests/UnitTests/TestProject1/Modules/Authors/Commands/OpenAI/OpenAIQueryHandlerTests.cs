@@ -36,17 +36,20 @@ public class OpenAIQueryHandlerTests
     [Fact]
     public async Task OpenAiQuery_ReturnsOk()
     {
-        var query = OpenAIQueryHandlerUtils.CreateQuery();
+        var query = OpenAIQueryHandlerTestUtils.CreateQuery();
 
         _mockUserContextService.Setup(_mockUserContextService => _mockUserContextService.UserId)
             .Returns(UserId.Create(UserConstants.Id));
 
         _mockOpenAIClient.Setup(x => x.GetMostPopularQuoteByAuthorNameAsync(It.IsAny<string>()))
-            .ReturnsAsync(OpenAIQueryHandlerUtils.GetOpenAIResponse());
+            .ReturnsAsync(OpenAIQueryHandlerTestUtils.GetOpenAIResponse());
 
         var result = await _handler.Handle(query, CancellationToken.None);
 
         result.IsError.Should().BeFalse();
         result.Value.ValidateOpenAIResponse();
+
+        _mockUserContextService.Verify(_mockUserContextService => _mockUserContextService.UserId, Times.Once);
+        _mockOpenAIClient.Verify(x => x.GetMostPopularQuoteByAuthorNameAsync(It.IsAny<string>()), Times.Once);
     }
 }

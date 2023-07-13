@@ -2,7 +2,7 @@
 using AW3.GR.OpenAI.Application.UnitTests.Modules.TestUtils.Constants;
 using AW3.GR.OpenAI.Domain.Authors;
 
-namespace AW3.GR.OpenAI.Application.UnitTests.Modules.Authors.Queries.TestUtils;
+namespace AW3.GR.OpenAI.Application.UnitTests.Modules.Authors.Queries.GetAuthors;
 
 public class GetAuthorQueryTestUtils
 {

@@ -4,7 +4,7 @@ using AW3.GR.OpenAI.Domain.Users;
 
 namespace AW3.GR.OpenAI.Application.UnitTests.Modules.Authors.Commands.OpenAI;
 
-public class OpenAIQueryHandlerUtils
+public class OpenAIQueryHandlerTestUtils
 {
     public static OpenAIQuery CreateQuery()
         => new(AuthorConstants.FullName);

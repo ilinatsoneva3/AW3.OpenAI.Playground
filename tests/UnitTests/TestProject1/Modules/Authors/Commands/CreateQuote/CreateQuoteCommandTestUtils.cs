@@ -3,9 +3,9 @@ using AW3.GR.OpenAI.Application.Modules.Authors.DTOs;
 using AW3.GR.OpenAI.Application.UnitTests.Modules.TestUtils.Constants;
 using AW3.GR.OpenAI.Domain.Authors;
 
-namespace AW3.GR.OpenAI.Application.UnitTests.Modules.Authors.Commands.CreateQuote.TestUtils;
+namespace AW3.GR.OpenAI.Application.UnitTests.Modules.Authors.Commands.CreateQuote;
 
-public class CreateQuoteCommandUtils
+public class CreateQuoteCommandTestUtils
 {
     public static CreateQuoteCommand CreateQuote()
         => new(CreateQuoteDto(), AuthorConstants.Id.ToString()!);

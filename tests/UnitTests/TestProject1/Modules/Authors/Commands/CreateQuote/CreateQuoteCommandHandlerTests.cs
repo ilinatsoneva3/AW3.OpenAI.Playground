@@ -1,7 +1,6 @@
 ﻿using System.Linq.Expressions;
 using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 using AW3.GR.OpenAI.Application.Modules.Authors.Commands.CreateQuote;
-using AW3.GR.OpenAI.Application.UnitTests.Modules.Authors.Commands.CreateQuote.TestUtils;
 using AW3.GR.OpenAI.Application.UnitTests.Modules.TestUtils.Extensions;
 using AW3.GR.OpenAI.Domain.Authors;
 using FluentAssertions;
@@ -26,12 +25,12 @@ public class CreateQuoteCommandHandlerTests
     [Fact]
     public async Task CreateQuote_ReturnsOK()
     {
-        var command = CreateQuoteCommandUtils.CreateQuote();
+        var command = CreateQuoteCommandTestUtils.CreateQuote();
 
         _mockAuthorRepository.Setup(ar => ar.FirstOrDefaultAsync(It.IsAny<Expression<Func<Author, bool>>>(), default))
-            .ReturnsAsync(CreateQuoteCommandUtils.GetAuthor());
+            .ReturnsAsync(CreateQuoteCommandTestUtils.GetAuthor());
 
-        var expectedAuthorDto = CreateQuoteCommandUtils.CreateAuthorDto;
+        var expectedAuthorDto = CreateQuoteCommandTestUtils.CreateAuthorDto;
         _mockMapper.Setup(m => m.Map<It.IsAnyType>(It.IsAny<Author>())).Returns(expectedAuthorDto);
 
         var result = await _handler.Handle(command, CancellationToken.None);
@@ -45,7 +44,7 @@ public class CreateQuoteCommandHandlerTests
     [Fact]
     public async Task CreateQuote_AuthorNotFound()
     {
-        var command = CreateQuoteCommandUtils.CreateQuoteInvalidAuthorId();
+        var command = CreateQuoteCommandTestUtils.CreateQuoteInvalidAuthorId();
 
         _mockAuthorRepository.Setup(ar => ar.FirstOrDefaultAsync(It.IsAny<Expression<Func<Author, bool>>>(), default))
             .ReturnsAsync(null as Author);

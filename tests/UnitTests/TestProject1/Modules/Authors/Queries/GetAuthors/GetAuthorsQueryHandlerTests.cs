@@ -1,6 +1,5 @@
 ﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 using AW3.GR.OpenAI.Application.Modules.Authors.Queries.GetAuthors;
-using AW3.GR.OpenAI.Application.UnitTests.Modules.Authors.Queries.TestUtils;
 using AW3.GR.OpenAI.Application.UnitTests.Modules.TestUtils.Extensions;
 using AW3.GR.OpenAI.Domain.Authors;
 using FluentAssertions;
@@ -39,5 +38,7 @@ public class GetAuthorsQueryHandlerTests
 
         result.IsError.Should().BeFalse();
         result.Value.ValidateGetAuthorList(authors);
+
+        _mockAuthorRepository.Verify(ar => ar.GetAllAsync(default), Times.Once);
     }
 }
