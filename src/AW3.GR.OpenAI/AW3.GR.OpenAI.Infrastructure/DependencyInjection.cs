@@ -85,7 +85,7 @@ public static class DependencyInjection
         {
             settings.ApiKey = configuration["OpenAI:ApiKey"];
         });
-        services.AddScoped<IOpenAiClient, OpenAIClient>();
+        services.AddScoped<IOpenAIClient, OpenAIClient>();
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
         services.AddScoped<IUserContextService, UserContextService>();

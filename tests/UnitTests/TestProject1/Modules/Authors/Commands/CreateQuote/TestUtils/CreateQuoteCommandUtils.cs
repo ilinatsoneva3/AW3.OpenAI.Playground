@@ -8,24 +8,25 @@ namespace AW3.GR.OpenAI.Application.UnitTests.Modules.Authors.Commands.CreateQuo
 public class CreateQuoteCommandUtils
 {
     public static CreateQuoteCommand CreateQuote()
-        => new(CreateQuoteDto(), Constants.Author.Id.ToString()!);
+        => new(CreateQuoteDto(), AuthorConstants.Id.ToString()!);
 
     public static CreateQuoteCommand CreateQuoteInvalidAuthorId()
-        => new(CreateQuoteDto(), Constants.Author.InvalidId.ToString()!);
+        => new(CreateQuoteDto(), AuthorConstants.InvalidId.ToString()!);
 
     public static CreateQuoteDto CreateQuoteDto()
-        => new(Constants.Author.QuoteContentFromIndex(0));
+        => new(AuthorConstants.QuoteContentFromIndex(0));
 
     public static AuthorDTO CreateAuthorDto()
-        => new(Constants.Author.Id, Constants.Author.FullName, CreateQuoteList());
+        => new(AuthorConstants.Id, AuthorConstants.FullName, CreateQuoteList());
 
     public static Author GetAuthor()
-        => Author.Create(Constants.Author.FirstName, Constants.Author.MiddleName, Constants.Author.LastName, Constants.Author.Id);
+        => Author.Create(
+            AuthorConstants.FirstName, AuthorConstants.MiddleName, AuthorConstants.LastName, AuthorConstants.Id);
 
     public static List<QuoteDTO> CreateQuoteList(int count = 1)
         => Enumerable.Range(0, count)
                 .Select(index => new QuoteDTO(
-                    Constants.Author.QuoteIdFromIndex(index),
-                    Constants.Author.QuoteContentFromIndex(index)))
+                    AuthorConstants.QuoteIdFromIndex(index),
+                    AuthorConstants.QuoteContentFromIndex(index)))
                 .ToList();
 }

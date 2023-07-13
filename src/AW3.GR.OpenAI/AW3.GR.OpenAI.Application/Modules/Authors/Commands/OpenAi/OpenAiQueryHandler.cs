@@ -8,16 +8,16 @@ using MediatR;
 
 namespace AW3.GR.OpenAI.Application.Modules.Quotes.Commands.AskOpenAI;
 
-internal sealed class OpenAIQueryHandler : IRequestHandler<OpenAIQuery, ErrorOr<OpenAIResponse>>
+public sealed class OpenAIQueryHandler : IRequestHandler<OpenAIQuery, ErrorOr<OpenAIResponse>>
 {
     private readonly ISearchHistoryRepository _searchHistoryRepository;
-    private readonly IOpenAiClient _aiClient;
+    private readonly IOpenAIClient _aiClient;
     private readonly IDateTimeProvider _dateTimeProvider;
     private readonly IUserContextService _userContextService;
 
     public OpenAIQueryHandler(
         ISearchHistoryRepository searchHistoryRepository,
-        IOpenAiClient aiClient,
+        IOpenAIClient aiClient,
         IDateTimeProvider dateTimeProvider,
         IUserContextService userContextService)
     {

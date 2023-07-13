@@ -3,7 +3,7 @@ using Rystem.OpenAi;
 
 namespace AW3.GR.OpenAI.Infrastructure.Clients;
 
-public class OpenAIClient : IOpenAiClient
+public class OpenAIClient : IOpenAIClient
 {
     private const string AUTHOR_NAME_PROMPT = "Provide a quote by [AN] in the form of: \"Quote: Author:\"";
     private readonly IOpenAiFactory _openAiFactory;

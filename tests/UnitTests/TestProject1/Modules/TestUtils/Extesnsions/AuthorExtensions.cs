@@ -9,8 +9,8 @@ public static partial class AuthorExtensions
 {
     public static void ValidateCreatedFrom(this AuthorDTO author, CreateQuoteCommand command)
     {
-        author.FullName.Should().Be(Constants.Constants.Author.FullName);
-        author.Id.Should().Be(Constants.Constants.Author.Id);
+        author.FullName.Should().Be(Constants.AuthorConstants.FullName);
+        author.Id.Should().Be(Constants.AuthorConstants.Id);
         author.Quotes.Should().HaveCount(1);
         author.Quotes.First().Content.Should().Be(command.Quote.Content);
     }
