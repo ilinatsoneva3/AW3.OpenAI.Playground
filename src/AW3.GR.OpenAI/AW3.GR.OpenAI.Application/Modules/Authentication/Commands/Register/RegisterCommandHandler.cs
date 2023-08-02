@@ -31,14 +31,14 @@ internal sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, 
 
     public async Task<ErrorOr<RegisterResponse>> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        if (_userRepository.GetUserByEmail(request.Email) != null)
+        if (await _userRepository.GetUserByEmail(request.Email) != null)
             return Errors.User.DuplicateEmail;
 
         var hashedPassword = _passwordHasher.HashPassword(request.Password);
 
         var user = User.Create(request.Username, request.Email, hashedPassword);
 
-        _userRepository.AddUser(user);
+        await _userRepository.AddUser(user);
 
         return new RegisterResponse(_mapper.Map<UserDto>(user), _jwtGenerator.GenerateToken(user));
     }

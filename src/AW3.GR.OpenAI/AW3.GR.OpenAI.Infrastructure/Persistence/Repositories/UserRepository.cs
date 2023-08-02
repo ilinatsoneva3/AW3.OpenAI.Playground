@@ -1,5 +1,6 @@
 ﻿using AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 using AW3.GR.OpenAI.Domain.Users;
+using Microsoft.EntityFrameworkCore;
 
 namespace AW3.GR.OpenAI.Infrastructure.Persistence.Repositories;
 
@@ -12,12 +13,12 @@ public class UserRepository : IUserRepository
         _dbContext = dbContext;
     }
 
-    public void AddUser(User user)
+    public async Task AddUser(User user)
     {
-        _dbContext.Add(user);
-        _dbContext.SaveChanges();
+        await _dbContext.AddAsync(user);
+        await _dbContext.SaveChangesAsync();
     }
 
-    public User? GetUserByEmail(string email)
-        => _dbContext.Users.SingleOrDefault(u => u.Email == email);
+    public async Task<User?> GetUserByEmail(string email)
+        => await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
 }

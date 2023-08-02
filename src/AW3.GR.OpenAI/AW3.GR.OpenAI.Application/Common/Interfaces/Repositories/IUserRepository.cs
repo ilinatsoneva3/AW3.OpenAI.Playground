@@ -4,7 +4,7 @@ namespace AW3.GR.OpenAI.Application.Common.Interfaces.Repositories;
 
 public interface IUserRepository
 {
-    User? GetUserByEmail(string email);
+    Task<User?> GetUserByEmail(string email);
 
-    void AddUser(User user);
+    Task AddUser(User user);
 }

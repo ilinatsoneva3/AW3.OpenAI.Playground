@@ -9,7 +9,7 @@ using MediatR;
 
 namespace AW3.GR.OpenAI.Application.Modules.Authors.Commands.CreateQuote;
 
-public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, ErrorOr<AuthorDTO>>
+public sealed class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, ErrorOr<AuthorDTO>>
 {
     private readonly IAuthorRepository _authorRepository;
     private readonly IMapper _mapper;

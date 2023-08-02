@@ -31,7 +31,7 @@ internal sealed class LoginCommandHandler : IRequestHandler<LoginCommand, ErrorO
 
     public async Task<ErrorOr<LoginResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        if (_userRepository.GetUserByEmail(request.Email) is not User user)
+        if (await _userRepository.GetUserByEmail(request.Email) is not User user)
             return Errors.Authentication.InvalidCredentials;
 
         var isCorrectPassword = _passwordHasher.VerifyPassword(user.PasswordHash, request.Password);

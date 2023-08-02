@@ -6,7 +6,7 @@ using MediatR;
 
 namespace AW3.GR.OpenAI.Application.Modules.Authors.Queries.GetAuthors;
 
-public class GetAuthorsQueryHandler : IRequestHandler<GetAuthorsQuery, ErrorOr<IEnumerable<AuthorDTO>>>
+public sealed class GetAuthorsQueryHandler : IRequestHandler<GetAuthorsQuery, ErrorOr<IEnumerable<AuthorDTO>>>
 {
     private readonly IAuthorRepository _authorRepository;
     private readonly IMapper _mapper;
