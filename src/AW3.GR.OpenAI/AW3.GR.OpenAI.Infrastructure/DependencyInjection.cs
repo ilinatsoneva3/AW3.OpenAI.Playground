@@ -55,11 +55,6 @@ public static class DependencyInjection
         services.AddScoped<ISearchHistoryRepository, SearchHistoryRepository>();
         services.AddScoped<IAuthorRepository, AuthorRepository>();
 
-        services.BuildServiceProvider()
-            .GetRequiredService<GROpenAIDbContext>()
-            .Database
-            .Migrate();
-
         return services;
     }
 
