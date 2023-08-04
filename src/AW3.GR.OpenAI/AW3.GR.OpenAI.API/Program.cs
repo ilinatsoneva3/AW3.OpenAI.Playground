@@ -17,15 +17,21 @@ builder.Host.UseSerilog((ctx, config) =>
 
 var app = builder.Build();
 {
-    // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
+    //// Configure the HTTP request pipeline.
+    //if (app.Environment.IsDevelopment())
+    //{
+    //    app.UseSwagger();
+    //    app.UseSwaggerUI(c =>
+    //    {
+    //        c.SwaggerEndpoint("/swagger/v1/swagger.json", "GR Open AI V1");
+    //    });
+    //}
+
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
     {
-        app.UseSwagger();
-        app.UseSwaggerUI(c =>
-        {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "GR Open AI V1");
-        });
-    }
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "GR Open AI V1");
+    });
 
     app.UseSerilogRequestLogging();
     app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
