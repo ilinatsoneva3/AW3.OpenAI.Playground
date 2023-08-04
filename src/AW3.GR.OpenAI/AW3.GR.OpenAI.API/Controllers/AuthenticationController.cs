@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace AW3.GR.OpenAI.API.Controllers;
 
 [AllowAnonymous]
-[Route("api/auth")]
+[Route("~/api/auth")]
 public class AuthenticationController : ApiController
 {
     [HttpPost("register")]
@@ -23,7 +23,7 @@ public class AuthenticationController : ApiController
     }
 
     [HttpPost("login")]
-    [SwaggerOperation("Logs in anuser and retrieves an access token")]
+    [SwaggerOperation("Logs in a user and retrieves an access token")]
     [SwaggerResponse((int)HttpStatusCode.BadRequest, "Wrong credentials")]
     public async Task<IActionResult> Login(LoginCommand request)
     {
