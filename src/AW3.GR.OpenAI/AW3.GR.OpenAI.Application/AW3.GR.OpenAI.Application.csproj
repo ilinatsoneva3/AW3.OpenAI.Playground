@@ -12,6 +12,8 @@
 		<PackageReference Include="Mapster" Version="7.3.0" />
 		<PackageReference Include="mapster.dependencyinjection" Version="1.0.0" />
 		<PackageReference Include="MediatR" Version="12.1.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

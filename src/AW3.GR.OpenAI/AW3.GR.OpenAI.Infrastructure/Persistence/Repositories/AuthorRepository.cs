@@ -26,6 +26,6 @@ public class AuthorRepository : IAuthorRepository
     public async Task<IEnumerable<Author>> GetAllAsync(CancellationToken cancellationToken = default)
         => await _dbContext.Authors.ToListAsync(cancellationToken);
 
-    public async Task<Author?> FirstOrDefaultAsync(Expression<Func<Author, bool>>? predicate = null, CancellationToken cancellationToken = default)
+    public async Task<Author?> FirstOrDefaultAsync(Expression<Func<Author, bool>> predicate, CancellationToken cancellationToken = default)
         => await _dbContext.Authors.FirstOrDefaultAsync(predicate, cancellationToken);
 }

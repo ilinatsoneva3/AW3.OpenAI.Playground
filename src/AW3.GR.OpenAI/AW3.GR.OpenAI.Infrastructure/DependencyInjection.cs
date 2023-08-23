@@ -35,7 +35,7 @@ public static class DependencyInjection
     private static IServiceCollection AddPersistence(this IServiceCollection services, ConfigurationManager configuration)
     {
 
-        var inMemoryDb = bool.Parse(configuration["UseInMemoryDb"]);
+        var inMemoryDb = bool.Parse(configuration["UseInMemoryDb"]!);
 
         services.AddDbContext<GROpenAIDbContext>(options =>
         {

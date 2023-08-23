@@ -6,6 +6,7 @@ using MapsterMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
+
 namespace AW3.GR.OpenAI.Application;
 
 public static class DependencyInjection

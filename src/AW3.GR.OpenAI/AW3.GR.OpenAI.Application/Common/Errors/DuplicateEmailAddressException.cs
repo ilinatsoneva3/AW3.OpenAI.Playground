@@ -6,5 +6,5 @@ public class DuplicateEmailAddressException : Exception, IServiceException
 {
     public HttpStatusCode StatusCode => HttpStatusCode.Conflict;
 
-    public string Message => "Email address already exists";
+    public override string Message => "Email address already exists";
 }

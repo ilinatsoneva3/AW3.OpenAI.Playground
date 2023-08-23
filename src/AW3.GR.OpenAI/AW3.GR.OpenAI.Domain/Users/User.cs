@@ -20,7 +20,9 @@ public class User : AggregateRoot<UserId, Guid>
 
     public static User Create(string username, string email, string password) => new(username, email, password);
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private User()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
     }
 }

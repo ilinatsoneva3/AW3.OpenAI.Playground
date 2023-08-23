@@ -14,7 +14,7 @@ public class PasswordHasher : IPasswordHasher
     public PasswordHasher(IOptions<PasswordHashingOptions>? optionsAccessor = null)
     {
         var options = optionsAccessor?.Value;
-        _iterationCount = options.IterationCount;
+        _iterationCount = options!.IterationCount;
         _rng = options.Rng;
     }
 

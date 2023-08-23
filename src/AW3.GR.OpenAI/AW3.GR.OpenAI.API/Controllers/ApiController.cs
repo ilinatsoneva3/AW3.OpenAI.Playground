@@ -12,18 +12,18 @@ namespace AW3.GR.OpenAI.API.Controllers;
 [Authorize]
 public class ApiController : ControllerBase
 {
-    private ISender _sender;
-    private IMapper _mapper;
+    private ISender? _sender;
+    private IMapper? _mapper;
 
     /// <summary>
     /// Mediator sender
     /// </summary>
-    protected ISender Sender => _sender ??= HttpContext.RequestServices.GetService<ISender>();
+    protected ISender Sender => _sender ??= HttpContext.RequestServices.GetService<ISender>() ?? throw new ArgumentNullException(nameof(ISender));
 
     /// <summary>
     /// Mapster mapper
     /// </summary>
-    protected IMapper Mapper => _mapper ??= HttpContext.RequestServices.GetService<IMapper>();
+    protected IMapper Mapper => _mapper ??= HttpContext.RequestServices.GetService<IMapper>() ?? throw new ArgumentNullException(nameof(IMapper));
 
     /// <summary>
     /// Custom implementation of <see cref="BadRequestObjectResult"/> that returns <see cref="ProblemDetails"/> with <see cref="Error"/>s
