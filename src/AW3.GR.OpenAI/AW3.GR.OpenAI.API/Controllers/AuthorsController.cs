@@ -12,6 +12,7 @@ namespace AW3.GR.OpenAI.API.Controllers;
 public class AuthorsController : ApiController
 {
     [HttpGet]
+    [AllowAnonymous]
     [SwaggerOperation("Get list of authors")]
     [SwaggerResponse((int)HttpStatusCode.OK, "List of authors", typeof(IEnumerable<AuthorDTO>))]
     [SwaggerResponse((int)HttpStatusCode.BadRequest, "Invalid request")]
@@ -45,13 +46,5 @@ public class AuthorsController : ApiController
         var result = await Sender.Send(new CreateQuoteCommand(request, authorId));
 
         return result.Match(Ok, Problem);
-    }
-
-    [HttpPost]
-    [AllowAnonymous]
-    [SwaggerOperation("Create a new author")]
-    public async Task<IActionResult> CreateAuthor(string authorName)
-    {
-        return Ok();
     }
 }
