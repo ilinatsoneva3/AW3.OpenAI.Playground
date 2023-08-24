@@ -3,6 +3,7 @@ using AW3.GR.OpenAI.Application.Modules.Authors.Commands.CreateQuote;
 using AW3.GR.OpenAI.Application.Modules.Authors.DTOs;
 using AW3.GR.OpenAI.Application.Modules.Authors.Queries.GetAuthors;
 using AW3.GR.OpenAI.Application.Modules.Quotes.Commands.AskOpenAI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -44,5 +45,13 @@ public class AuthorsController : ApiController
         var result = await Sender.Send(new CreateQuoteCommand(request, authorId));
 
         return result.Match(Ok, Problem);
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    [SwaggerOperation("Create a new author")]
+    public async Task<IActionResult> CreateAuthor(string authorName)
+    {
+        return Ok();
     }
 }
